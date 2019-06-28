@@ -11,5 +11,20 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.disableNotifications()
+    .js('resources/js/app.js', 'public/js')
+    .extract(['vue', 'crypto-js', 'axios'])
+    .sass('resources/sass/app.scss', 'public/css')
+    .version();
+
+mix.browserSync({
+    proxy: 'http://robin.test/',
+    host: 'robin.test',
+    port: 3000,
+    ui: false,
+    files: [
+        'resources/views/!**!/!*.php',
+        'resources/js/!*.js',
+        'resources/css/!*.scss',
+    ],
+});
