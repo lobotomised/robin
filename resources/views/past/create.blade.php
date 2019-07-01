@@ -42,8 +42,4 @@
 
         <button type="submit" class="btn btn-primary" id="submit">Valider</button>
     </form>
-
-    <div id="app">
-        <modal-component></modal-component>
-    </div>
 @endsection

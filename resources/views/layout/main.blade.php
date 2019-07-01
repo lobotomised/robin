@@ -22,6 +22,18 @@
     <main>
         @yield('content')
     </main>
+
+    <div id="app">
+        <button id="show-modal" @click="showModal = true">Show Modal</button>
+        <!-- use the modal component, pass in the prop -->
+        <modal-component v-if="showModal" @close="showModal = false">
+            <!--
+              you can use custom content here to overwrite
+              default content
+            -->
+            <h3 slot="header">custom header</h3>
+        </modal-component>
+    </div>
 </div>
 
 

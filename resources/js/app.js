@@ -8,14 +8,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
 window.axios.defaults.baseURL = document.head.querySelector('meta[name="api-base-url"]').content;
 
-
 window.Vue = require('vue');
-
-Vue.component('modal-component', require('./components/ModalComponent.vue').default);
-
-const app = new Vue({
-    el: '#app'
-});
+Vue.component('modal-component', require('./components/ModalComponent').default);
 
 
 let genPasswd = () => {
@@ -27,10 +21,9 @@ document.querySelector('#genpasswd').addEventListener('click', () => {
     document.querySelector('#passwd').value = genPasswd();
 });
 
-document.querySelector('#submit').addEventListener('click', (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-
+document.querySelector('#submit').addEventListener('click', (event) => {
+    event.stopPropagation();
+    event.preventDefault();
 
     let txt = document.querySelector('#bin').value;
     let passwd = document.querySelector('#passwd').value;
@@ -65,4 +58,3 @@ document.querySelector('#submit').addEventListener('click', (e) => {
         })
     ;
 });
-
