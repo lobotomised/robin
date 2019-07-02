@@ -16,11 +16,16 @@ class Past extends Model
     use UsesUuid;
 
     protected $fillable = [
-        'encrypted', 'expire_at'
+        'encrypted',
+        'expire_at'
     ];
 
     protected $casts = [
         'expire_at' => 'datetime'
+    ];
+
+    protected $hidden = [
+        'encrypted'
     ];
 
 }
