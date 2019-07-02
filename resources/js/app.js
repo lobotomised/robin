@@ -1,15 +1,42 @@
 'use strict';
 
-window.CryptoJS = require('crypto-js');  // https://github.com/brix/crypto-js
-//window.hljs = require ('highlight.js'); // https://github.com/highlightjs/highlight.js/ https://highlightjs.org/
+require('./bootstrap');
 
-window.axios = require('axios');
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
-window.axios.defaults.baseURL = document.head.querySelector('meta[name="api-base-url"]').content;
 
-window.Vue = require('vue');
-Vue.component('modal-component', require('./components/ModalComponent').default);
+///
+/// COMMON STUFF
+///
+
+
+// modal
+let openModal = (error, message) => {
+    document.querySelector('#modal-message').innerHTML = error;
+    document.querySelector('#modal-error').innerHTML = message;
+    document.querySelector('#modal').classList.remove("modal-close");
+    document.querySelector('#modal').classList.add("modal-open");
+};
+
+let closeModal = () => {
+    document.querySelector('#modal').classList.remove("modal-open");
+    document.querySelector('#modal').classList.add("modal-close");
+};
+
+// ferme la modal quand on clic sur le bouton
+document.querySelector('#modal-close').addEventListener('click', () => {
+    closeModal();
+});
+
+// ferme la modal quand on click à l'extérieur
+document.addEventListener('click', (event) => {
+    if (event.target === document.getElementById('modal-wrapper')) {
+        closeModal()
+    }
+});
+
+
+///
+/// Create Past
+///
 
 
 let genPasswd = () => {
@@ -21,40 +48,46 @@ document.querySelector('#genpasswd').addEventListener('click', () => {
     document.querySelector('#passwd').value = genPasswd();
 });
 
-document.querySelector('#submit').addEventListener('click', (event) => {
-    event.stopPropagation();
+document.querySelector('#create').addEventListener('click', (event) => {
+    //event.stopPropagation();
     event.preventDefault();
 
     let txt = document.querySelector('#bin').value;
     let passwd = document.querySelector('#passwd').value;
 
     if (txt.length === 0) {
-        // TODO Modal box d'erreur
-        console.log('Le texte est vide', 'Vous devez fournir un texte à soumettre');
-        return;
-    }
-
-    if (txt.length >= 16777215) { // MEDIUMINT unsigned max value
-        // TODO Modal box d'erreur
-        console.log('Le texte est trop grand', 'Vous devez fournir un text de moins de 4MiB');
+        openModal('Texte vide.', 'Vous devez fournir un texte à soumettre.');
         return;
     }
 
     if (passwd.length === 0) {
-        // TODO Modal box d'erreur
-        console.log('Le mot de passe est vide', 'Vous devez fournir un mot de passe');
+        openModal('Le mot de passe est vide.', 'Vous devez fournir un mot de passe.');
         return;
     }
 
-    let request = {
+    if (txt.length >= 16777215) { // MEDIUMINT unsigned max value
+        openModal('Le texte est trop grand.', 'Vous devez fournir un text de moins de 4MiB.');
+        return;
+    }
+
+    let payload = {
         'encrypted': window.CryptoJS.AES.encrypt(txt, passwd).toString(),
         'expire': document.querySelector('#expire').value,
     };
 
     window.axios
-        .post('/past', request)
-        .then(function (response) {
+        .post('/past', payload)
+        .then(response => {
             window.location.href = '/past/' + response.data;
         })
-    ;
+        .catch(error => {
+            console.error(error.response);
+            openModal("L'enregistrement a échoué.", error.response.status + ': ' + error.response.statusText);
+            // TODO: Afficher l'erreur à l'utilisateur
+        });
 });
+
+
+///
+/// show
+///

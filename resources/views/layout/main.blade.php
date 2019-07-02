@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="api-base-url" content="{{ url('/') }}">
+    <meta name="api-base-url" content="{{ url('/api/v1') }}">
 
     <title>RoBin</title>
 
@@ -23,17 +23,30 @@
         @yield('content')
     </main>
 
-    <div id="app">
-        <button id="show-modal" @click="showModal = true">Show Modal</button>
-        <!-- use the modal component, pass in the prop -->
-        <modal-component v-if="showModal" @close="showModal = false">
-            <!--
-              you can use custom content here to overwrite
-              default content
-            -->
-            <h3 slot="header">custom header</h3>
-        </modal-component>
-    </div>
+    <transition name="modal" id="modal" class="modal-close">
+        <div class="modal-mask">
+            <div class="modal-wrapper" id="modal-wrapper">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <slot name="header" id="modal-message"></slot>
+                    </div>
+
+                    <div class="modal-body">
+                        <slot name="body" id="modal-error"></slot>
+                    </div>
+
+                    <div class="modal-footer">
+                        <slot name="footer">
+                            <button class="btn btn-primary modal-default-button" id="modal-close">
+                                OK
+                            </button>
+                        </slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+
 </div>
 
 

@@ -5,12 +5,7 @@ Route::get('/', [
     'uses' => 'PastController@create'
 ]);
 
-Route::post('/past', [
-    'as'   => 'past.store',
-    'uses' => 'PastController@store'
-]);
-
-Route::get('/past/{uid}', [
+Route::get('/past/{past}', [
     'as'   => 'past.view',
     'uses' => 'PastController@view'
 ]);

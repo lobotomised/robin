@@ -2,6 +2,7 @@
 @section('content')
 
     <form class="need-validation" novalidate>
+
         <div class="form-group">
             <label class="form-check-label" for="bin">Coller votre texte ici</label>
             <textarea class="form-control" id="bin" rows="15" required></textarea>
@@ -24,22 +25,20 @@
             <div class="form-group ml-sm-3 mb-2">
                 <label for="passd">Mot de passe&nbsp;</label>
 
-                <div class="input-group mb-2 mr-sm-2">
+                <div class="mb-2">
                     <input type="text" class="form-control" id="passwd" required>
+
                     <div class="invalid-feedback">
                         Please enter a message in the textarea.
                     </div>
-                    <div class="input-group-append">
-                        <div class="input-group-text">@</div>
-                    </div>
+
                     <button type="button" class="btn btn-secondary ml-2" id="genpasswd">Générer un mot de passe</button>
                 </div>
-
 
             </div>
 
         </div>
 
-        <button type="submit" class="btn btn-primary" id="submit">Valider</button>
+        <button type="submit" class="btn btn-primary" id="create">Valider</button>
     </form>
 @endsection
