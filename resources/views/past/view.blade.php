@@ -5,6 +5,13 @@
 
     <form class="need-validation" id="show-past" novalidate>
 
+        <nav class="navbar navbar-expand-lg navbar-light pasts-info">
+
+            <div class="past-info"><span class="badge badge-primary">Created at</span>{{$past->created_at}}</div>
+            <div class="past-info"><span class="badge badge-primary">Expire at</span>{{$past->expire_at}}</div>
+
+        </nav>
+
         <div class="form-group">
             <label class="form-check-label" for="past"></label>
             <textarea class="form-control" id="past" rows="15" required readonly>{{ $past->encrypted }}</textarea>

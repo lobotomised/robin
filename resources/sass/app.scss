@@ -1,7 +1,6 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
 // Variables
 @import 'variables';
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
@@ -82,4 +81,15 @@ header {
 
 .modal-close {
   display: none;
+}
+
+.pasts-info {
+  background-color: $gray-200;
+
+  .past-info {
+    margin-right: 1em;
+  }
+  span {
+    margin-right: .5em;
+  }
 }
