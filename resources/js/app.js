@@ -38,16 +38,6 @@ document.addEventListener('click', (event) => {
 /// Create Past
 ///
 
-
-let genPasswd = () => {
-    let cryptoObj = window.crypto || window.msCrypto; // pour IE 11
-    return cryptoObj.getRandomValues(new Uint32Array(1))[0];
-};
-
-document.querySelector('#genpasswd').addEventListener('click', () => {
-    document.querySelector('#passwd').value = genPasswd();
-});
-
 document.querySelector('#create').addEventListener('click', (event) => {
     //event.stopPropagation();
     event.preventDefault();

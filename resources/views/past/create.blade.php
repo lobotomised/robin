@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('content')
 
-    <form class="need-validation" novalidate>
+    <form class="need-validation" id="create-past" novalidate>
 
         <div class="form-group">
             <label class="form-check-label" for="bin">Coller votre texte ici</label>
@@ -26,13 +26,7 @@
                 <label for="passd">Mot de passe&nbsp;</label>
 
                 <div class="mb-2">
-                    <input type="text" class="form-control" id="passwd" required>
-
-                    <div class="invalid-feedback">
-                        Please enter a message in the textarea.
-                    </div>
-
-                    <button type="button" class="btn btn-secondary ml-2" id="genpasswd">Générer un mot de passe</button>
+                    <input type="text" class="form-control" id="passwd" pattern=".{3,}" required>
                 </div>
 
             </div>
