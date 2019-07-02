@@ -22,6 +22,7 @@ mix.browserSync({
     host: 'robin.test',
     port: 3000,
     ui: false,
+    open: false,
     files: [
         'resources/views/!**!/!*.php',
         'resources/js/!*.js',
