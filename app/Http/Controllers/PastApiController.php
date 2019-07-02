@@ -46,6 +46,6 @@ class PastApiController extends Controller
 
         $past->save();
 
-        return response($past->id, Response::HTTP_CREATED);
+        return response(new \App\Http\Resources\Past($past), Response::HTTP_CREATED);
     }
 }

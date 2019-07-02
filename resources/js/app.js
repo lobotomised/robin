@@ -78,7 +78,7 @@ document.querySelector('#create').addEventListener('click', (event) => {
     window.axios
         .post('/past', payload)
         .then(response => {
-            window.location.href = '/past/' + response.data;
+            window.location.href = '/past/' + response.data.id;
         })
         .catch(error => {
             console.error(error.response);
