@@ -7,11 +7,10 @@ use Illuminate\Support\Str;
 
 trait UsesUuid
 {
-
     protected static function bootUsesUuid()
     {
         static::creating(static function (Model $model) {
-            if ( ! $model->getKey()) {
+            if (!$model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
