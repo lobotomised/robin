@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 
 mix.disableNotifications()
     .js('resources/js/app.js', 'public/js')
-    .extract(['vue', 'crypto-js', 'axios'])
+    .extract(['crypto-js', 'axios'])
     .sass('resources/sass/app.scss', 'public/css')
     .version();
 
