@@ -1,32 +1,109 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+'use strict';
 
 require('./bootstrap');
 
-window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+///
+/// COMMON STUFF
+///
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// modal
+let openModal = (error, message) => {
+    document.querySelector('#modal-message').innerHTML = error;
+    document.querySelector('#modal-error').innerHTML = message;
+    document.querySelector('#modal').classList.remove("modal-close");
+    document.querySelector('#modal').classList.add("modal-open");
+};
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+let closeModal = () => {
+    document.querySelector('#modal').classList.remove("modal-open");
+    document.querySelector('#modal').classList.add("modal-close");
+};
 
-const app = new Vue({
-    el: '#app',
+// ferme la modal quand on clic sur le bouton
+document.querySelector('#modal-close').addEventListener('click', () => {
+    closeModal();
 });
+
+// ferme la modal quand on click à l'extérieur
+document.addEventListener('click', (event) => {
+    if (event.target === document.getElementById('modal-wrapper')) {
+        closeModal()
+    }
+});
+
+
+///
+/// Create Past
+///
+
+if (document.querySelector('#create-past') !== null) {
+    document.querySelector('#create').addEventListener('click', (event) => {
+        //event.stopPropagation();
+        event.preventDefault();
+
+        let txt = document.querySelector('#bin').value;
+        let passwd = document.querySelector('#passwd').value;
+
+        if (txt.length === 0) {
+            openModal('Texte vide.', 'Vous devez fournir un texte à soumettre.');
+            return;
+        }
+
+        if (passwd.length < 6) {
+            openModal('Le mot de passe trop court.', "Vous devez fournir un mot de passe d'au moins 6 caractères.");
+            return;
+        }
+
+        if (txt.length >= 16777215) { // MEDIUMINT unsigned max value
+            openModal('Le texte est trop grand.', 'Vous devez fournir un text de moins de 4MiB.');
+            return;
+        }
+
+        let payload = {
+            'encrypted': window.CryptoJS.AES.encrypt(txt, passwd).toString(),
+            'expire': document.querySelector('#expire').value,
+        };
+
+        window.axios
+            .post('/past', payload)
+            .then(response => {
+                window.location.href = '/past/' + response.data.id;
+            })
+            .catch(error => {
+                console.error(error.response);
+                openModal("L'enregistrement a échoué.", error.response.status + ': ' + error.response.statusText);
+                // TODO: Afficher l'erreur à l'utilisateur
+            });
+    });
+}
+
+///
+/// show
+///
+
+if (document.querySelector('#show-past') !== null) {
+
+    let decrypt = (txt, passwd) => {
+        let dec = window.CryptoJS.AES.decrypt(txt, passwd);
+        return dec.toString(window.CryptoJS.enc.Utf8);
+    };
+
+    window.onload = () => {
+        document.querySelector('#past').value = document.querySelector('#cipher').innerHTML;
+    };
+
+    document.querySelector('#decrypt').addEventListener('click', (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        let past = document.querySelector('#cipher').innerHTML;
+        let passwd = document.querySelector('#passwd').value;
+
+        let decrypted = decrypt(past, passwd);
+
+        document.querySelector('#past').value = decrypted;
+    });
+
+}
