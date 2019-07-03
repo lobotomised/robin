@@ -16,7 +16,7 @@ class PastApiController extends Controller
      */
     public function store(CreatePastRequest $request): Response
     {
-        switch ($request->encrypted) {
+        switch ($request->expire) {
             case '5m':
                 $expire = now()->addMinutes(5);
                 break;
