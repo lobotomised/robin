@@ -1,6 +1,15 @@
 @extends('layout.main')
 @section('content')
 
+
+    <noscript>
+        <div class="col-sm-12 col-xs-12">
+            <div class="alert alert-danger">
+                <strong>Le Javascript est désactivé. L'application ne pourra fonctionner correctement.</strong>
+            </div>
+        </div>
+    </noscript>
+
     <form class="need-validation" id="create-past" novalidate>
 
         <div class="form-group">
