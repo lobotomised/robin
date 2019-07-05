@@ -76,3 +76,8 @@ test:
     # set it in your package.json script
     # comment this out if you don't have a frontend test
     #- npm test
+  artifacts:
+    paths:
+      - ./storage/logs # for debugging
+    expire_in: 1 days
+    when: on_failure
