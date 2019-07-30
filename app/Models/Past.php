@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\PastCreated;
 use App\Models\Concerns\UsesUuid;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,4 +29,7 @@ class Past extends Model
         'encrypted'
     ];
 
+    protected $dispatchesEvents = [
+        'created' => PastCreated::class,
+    ];
 }
