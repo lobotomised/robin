@@ -2,7 +2,6 @@
 
 namespace App\Support;
 
-use App\Models\Past;
 use GuzzleHttp\Client as HttpClient;
 
 class DiscordMessage
@@ -24,50 +23,33 @@ class DiscordMessage
     /**
      * @var string
      */
-    private $channel;
-
-    /**
-     * @var string
-     */
     private $webhook_token;
 
     /**
      * @var string
      */
     private $webhook_id;
-    /**
-     * @var \App\Models\Past
-     */
-    private $past;
 
-    public function __construct(Past $past)
+    public function __construct(HttpClient $httpClient)
     {
-        $this->httpClient = new HttpClient([
-            'headers' => [
-                'Content-Type' => 'multipart/form-data'
-            ]
-        ]);
-        $this->baseUrl = 'https://discordapp.com/api';
-        $this->channel = config('services.discord.channel');
+        $this->httpClient = $httpClient;
+        $this->baseUrl = config('services.discord.base_url');
         $this->webhook_id = config('services.discord.id');
         $this->webhook_token = config('services.discord.token');
-        $this->past = $past;
     }
 
-
-    public function send()
+    public function send($message)
     {
         $discord_url = $this->baseUrl.'/webhooks/'.$this->webhook_id.'/'.$this->webhook_token;
 
-        $data = [
-            'username' => config('app.name'),
-            'content' => sprintf("Un nouveau past a été publié à l'adresse %s", route('past.view', $this->past))
+        $payload = [
+            'username' => config('app.name').' - notification',
+            'content' => $message
         ];
 
-        return $this->httpClient->post(
-            $discord_url,
-            [ 'form_params' => $data ]
-        );
-
+        $this->httpClient->request('POST', $discord_url, [
+            'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
+            'form_params' => $payload
+        ]);
     }
 }

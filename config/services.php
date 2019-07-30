@@ -47,7 +47,7 @@ return [
     ],
 
     'discord' => [
-        'channel' => env('DISCORD_CHANNEL_ID', null),
+        'base_url' => 'https://discordapp.com/api',
         'id' => env('DISCORD_WEBHOOK_ID', null),
         'token' => env('DISCORD_WEBHOOK_TOKEN', null),
     ],
