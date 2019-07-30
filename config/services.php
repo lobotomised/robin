@@ -46,4 +46,10 @@ return [
         ],
     ],
 
+    'discord' => [
+        'channel' => env('DISCORD_CHANNEL_ID', null),
+        'id' => env('DISCORD_WEBHOOK_ID', null),
+        'token' => env('DISCORD_WEBHOOK_TOKEN', null),
+    ],
+
 ];
