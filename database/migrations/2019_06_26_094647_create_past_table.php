@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreatePastTable extends Migration
@@ -15,10 +16,11 @@ class CreatePastTable extends Migration
     {
         Schema::create('pasts', static function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->binary('encrypted');
             $table->dateTime('expire_at');
             $table->timestamps();
         });
+
+        DB::statement("ALTER TABLE pasts ADD encrypted MEDIUMBLOB AFTER id");
     }
 
     /**
