@@ -12,8 +12,9 @@
     clone_repository
     run_composer
     run_yarn
-update_symlinks
+    update_symlinks
     migrate_db
+    laravel_cache
 @endstory
 
 @task('clone_repository')
@@ -48,7 +49,14 @@ update_symlinks
 @endtask
 
 @task('migrate_db')
-echo "🙈  Migrating database..."
-cd {{ $new_release_dir }}
-php artisan migrate --force
+    echo "🙈  Migrating database..."
+    cd {{ $new_release_dir }}
+    php artisan migrate --force
+@endtask
+
+@task('laravel_cache')
+    cd {{ $new_release_dir }}
+    php artisan route:cache
+    php artisan config:cache
+    php artisan view:cache
 @endtask
