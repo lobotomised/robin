@@ -16,117 +16,117 @@ variables:
 cache:
   key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
 
-composer:
-  stage: preparation
-  services:
-    - mysql:5.7
-  image: registry.gitlab.com/lobotomised/robin
-  script:
-    - php -v
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-    - cp .env.example .env
-    - php artisan key:generate
-  artifacts:
-    paths:
-      - vendor/
-      - .env
-    expire_in: 1 days
-    when: always
-  cache:
-    paths:
-      - vendor/
-
-yarn:
-  stage: preparation
-  image: registry.gitlab.com/lobotomised/robin
-  script:
-    - yarn --version
-    - yarn install --pure-lockfile
-  artifacts:
-    paths:
-      - node_modules/
-    expire_in: 1 days
-    when: always
-  cache:
-    paths:
-      - node_modules/
-
-build-assets:
-  stage: building
-  image: registry.gitlab.com/lobotomised/robin
-  dependencies:
-    - composer
-    - yarn
-  script:
-    - yarn --version
-    - yarn run production --progress false
-  artifacts:
-    paths:
-      - public/css/
-      - public/js/
-      - public/fonts/
-      - public/mix-manifest.json
-    expire_in: 1 days
-    when: always
-
-db-seeding:
-  stage: building
-  services:
-    - mysql:5.7
-  image: registry.gitlab.com/lobotomised/robin
-  dependencies:
-    - composer
-    - yarn
-  script:
-    - php artisan migrate:fresh --seed
-  artifacts:
-    paths:
-      - ./storage/logs
-    expire_in: 1 days
-    when: on_failure
-
-phpunit:
-  stage: testing
-  services:
-    - mysql:5.7
-  image: registry.gitlab.com/lobotomised/robin
-  dependencies:
-    - build-assets
-    - composer
-    - db-seeding
-  script:
-    - php -v
-    - ./vendor/phpunit/phpunit/phpunit --version
-    - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
-  artifacts:
-    paths:
-      - ./storage/logs
-    expire_in: 1 days
-    when: on_failure
-
-phpcpd:
-  stage: testing
-  image: registry.gitlab.com/lobotomised/robin
-  script:
-    - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
-    - php phpcpd.phar app/ --min-lines=50
-  dependencies: []
-  cache:
-    paths:
-      - phpcpd.phar
-
-sensiolabs:
-  stage: security
-  image: registry.gitlab.com/lobotomised/robin
-  script:
-    - test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
-    - cd security-checker
-    - composer install
-    - php security-checker security:check ../composer.lock
-  dependencies: []
-  cache:
-    paths:
-      - security-checker/
+#composer:
+#  stage: preparation
+#  services:
+#    - mysql:5.7
+#  image: registry.gitlab.com/lobotomised/robin
+#  script:
+#    - php -v
+#    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+#    - cp .env.example .env
+#    - php artisan key:generate
+#  artifacts:
+#    paths:
+#      - vendor/
+#      - .env
+#    expire_in: 1 days
+#    when: always
+#  cache:
+#    paths:
+#      - vendor/
+#
+#yarn:
+#  stage: preparation
+#  image: registry.gitlab.com/lobotomised/robin
+#  script:
+#    - yarn --version
+#    - yarn install --pure-lockfile
+#  artifacts:
+#    paths:
+#      - node_modules/
+#    expire_in: 1 days
+#    when: always
+#  cache:
+#    paths:
+#      - node_modules/
+#
+#build-assets:
+#  stage: building
+#  image: registry.gitlab.com/lobotomised/robin
+#  dependencies:
+#    - composer
+#    - yarn
+#  script:
+#    - yarn --version
+#    - yarn run production --progress false
+#  artifacts:
+#    paths:
+#      - public/css/
+#      - public/js/
+#      - public/fonts/
+#      - public/mix-manifest.json
+#    expire_in: 1 days
+#    when: always
+#
+#db-seeding:
+#  stage: building
+#  services:
+#    - mysql:5.7
+#  image: registry.gitlab.com/lobotomised/robin
+#  dependencies:
+#    - composer
+#    - yarn
+#  script:
+#    - php artisan migrate:fresh --seed
+#  artifacts:
+#    paths:
+#      - ./storage/logs
+#    expire_in: 1 days
+#    when: on_failure
+#
+#phpunit:
+#  stage: testing
+#  services:
+#    - mysql:5.7
+#  image: registry.gitlab.com/lobotomised/robin
+#  dependencies:
+#    - build-assets
+#    - composer
+#    - db-seeding
+#  script:
+#    - php -v
+#    - ./vendor/phpunit/phpunit/phpunit --version
+#    - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
+#  artifacts:
+#    paths:
+#      - ./storage/logs
+#    expire_in: 1 days
+#    when: on_failure
+#
+#phpcpd:
+#  stage: testing
+#  image: registry.gitlab.com/lobotomised/robin
+#  script:
+#    - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
+#    - php phpcpd.phar app/ --min-lines=50
+#  dependencies: []
+#  cache:
+#    paths:
+#      - phpcpd.phar
+#
+#sensiolabs:
+#  stage: security
+#  image: registry.gitlab.com/lobotomised/robin
+#  script:
+#    - test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
+#    - cd security-checker
+#    - composer install
+#    - php security-checker security:check ../composer.lock
+#  dependencies: []
+#  cache:
+#    paths:
+#      - security-checker/
 
 deploy_production:
   stage: deploy
