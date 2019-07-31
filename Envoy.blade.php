@@ -1,3 +1,5 @@
+@servers(['web' => 'robin@robin.rprevost.fr'])
+
 @setup
     $repository = 'git@gitlab.example.com:lobotomised/robin.git';
     $releases_dir = '/var/www/robin/current/releases';
