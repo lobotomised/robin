@@ -3,6 +3,7 @@ stages:
   - building
   - testing
   - security
+  - deploy
 
 # Variables
 variables:
@@ -126,3 +127,19 @@ sensiolabs:
   cache:
     paths:
       - security-checker/
+
+deploy_production:
+  stage: deploy
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ~/.composer/vendor/bin/envoy run deploy
+  environment:
+    name: production
+    url: http://robin.rprevost.fr
+  when: manual
+  only:
+    - master
