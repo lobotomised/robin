@@ -42,6 +42,13 @@
     yarn run production
 @endtask
 
+
+@task('cleanup_build_process')
+    {{ logMessage("🗳 Building cache") }}
+    cd {{ $new_release_dir }}
+    rm -Rf {{ $new_release_dir }}/node_modules
+@endtask
+
 @task('update_symlinks')
     {{ logMessage("🔄 Linking storage directory") }}
 
