@@ -25,7 +25,7 @@
 @task('run_composer')
     echo "🚚  Running Composer"
     cd {{ $new_release_dir }}
-    composer install --prefer-dist --no-dev --no-ansi --no-interaction --no-progress --no-scripts  ---optimize-autoloader
+    composer install --prefer-dist --no-dev --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
 @endtask
 
 @task('run_yarn')
