@@ -20,7 +20,7 @@ composer:
   stage: preparation
   services:
     - mysql:5.7
-  image: lobotomised/gitlab-ci-runner-php7.3:latest
+  image: registry.gitlab.com/lobotomised/robin
   script:
     - php -v
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
@@ -38,7 +38,7 @@ composer:
 
 yarn:
   stage: preparation
-  image: lobotomised/gitlab-ci-runner-php7.3:latest
+  image: registry.gitlab.com/lobotomised/robin
   script:
     - yarn --version
     - yarn install --pure-lockfile
@@ -53,7 +53,7 @@ yarn:
 
 build-assets:
   stage: building
-  image: lobotomised/gitlab-ci-runner-php7.3:latest
+  image: registry.gitlab.com/lobotomised/robin
   dependencies:
     - composer
     - yarn
@@ -73,7 +73,7 @@ db-seeding:
   stage: building
   services:
     - mysql:5.7
-  image: lobotomised/gitlab-ci-runner-php7.3:latest
+  image: registry.gitlab.com/lobotomised/robin
   dependencies:
     - composer
     - yarn
@@ -89,7 +89,7 @@ phpunit:
   stage: testing
   services:
     - mysql:5.7
-  image: lobotomised/gitlab-ci-runner-php7.3:latest
+  image: registry.gitlab.com/lobotomised/robin
   dependencies:
     - build-assets
     - composer
@@ -106,7 +106,7 @@ phpunit:
 
 phpcpd:
   stage: testing
-  image: lobotomised/gitlab-ci-runner-php7.3:latest
+  image: registry.gitlab.com/lobotomised/robin
   script:
     - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
     - php phpcpd.phar app/ --min-lines=50
@@ -117,7 +117,7 @@ phpcpd:
 
 sensiolabs:
   stage: security
-  image: lobotomised/gitlab-ci-runner-php7.3:latest
+  image: registry.gitlab.com/lobotomised/robin
   script:
     - test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
     - cd security-checker
