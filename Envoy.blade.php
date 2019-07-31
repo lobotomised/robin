@@ -6,6 +6,10 @@
     $app_dir = '/var/www/robin/current';
     $release = date('YmdHis');
     $new_release_dir = $releases_dir .'/'. $release;
+
+    function logMessage($message) {
+        return "echo '\033[32m" .$message. "\033[0m';\n";
+    }
 @endsetup
 
 @story('deploy')
@@ -18,29 +22,33 @@
 @endstory
 
 @task('clone_repository')
-    echo 'Cloning repository'
+    {{ logMessage("🌀 Cloning repository") }}
     [ -d {{ $releases_dir }} ] || mkdir {{ $releases_dir }}
     git clone --depth 1 {{ $repository }} {{ $new_release_dir }}
 @endtask
 
 @task('run_composer')
-    echo "🚚  Running Composer"
+    {{ logMessage("🚚  Running Composer") }}
     cd {{ $new_release_dir }}
     composer install --prefer-dist --no-dev --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
 @endtask
 
 @task('run_yarn')
-    echo "📦  Running Yarn..."
+    {{ logMessage("📦  Running Yarn...") }}
     cd {{ $new_release_dir }}
+    yarn config set ignore-engines true
     yarn install --frozen-lockfile
     yarn run production
 @endtask
 
 @task('update_symlinks')
-    echo "Linking storage directory"
+    {{ logMessage("🔄 Linking storage directory") }}
+
+    # Remove the storage directory and replace with de persistent one
     rm -rf {{ $new_release_dir }}/storage
     ln -nfs {{ $app_dir }}/storage {{ $new_release_dir }}/storage
 
+    # Link the .env
     echo 'Linking .env file'
     ln -nfs {{ $app_dir }}/.env {{ $new_release_dir }}/.env
 
@@ -49,14 +57,20 @@
 @endtask
 
 @task('migrate_db')
-    echo "🙈  Migrating database..."
+    {{ logMessage("🙈 Migrating database...") }}
     cd {{ $new_release_dir }}
     php artisan migrate --force
 @endtask
 
 @task('laravel_cache')
+    {{ logMessage("🗳 Building cache...") }}
     cd {{ $new_release_dir }}
     php artisan route:cache
     php artisan config:cache
     php artisan view:cache
+@endtask
+
+@task('remove_old_release')
+    {{ logMessage("⛏ Removing old release") }}
+    ls -dt releases/* | tail -n +6 | xargs -d "\n" rm -rf
 @endtask
