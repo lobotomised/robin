@@ -130,6 +130,7 @@ sensiolabs:
 
 deploy_production:
   stage: deploy
+  image: registry.gitlab.com/lobotomised/robin
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
