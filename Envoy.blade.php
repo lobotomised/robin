@@ -19,6 +19,7 @@
     update_symlinks
     migrate_db
     laravel_cache
+    remove_old_release
 @endstory
 
 @task('clone_repository')
