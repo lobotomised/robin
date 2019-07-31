@@ -130,7 +130,6 @@ cache:
 
 deploy_production:
   stage: deploy
-  image: registry.gitlab.com/lobotomised/robin
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
@@ -139,7 +138,8 @@ deploy_production:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - pwd
     - ls -al
-    - ~/.composer/vendor/bin/envoy run deploy
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA"
   artifacts:
     paths:
       - ./storage/logs
