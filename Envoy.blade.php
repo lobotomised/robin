@@ -29,13 +29,13 @@
 @endtask
 
 @task('run_composer')
-    {{ logMessage("🚚  Running Composer") }}
+    {{ logMessage("🚚 Running Composer") }}
     cd {{ $new_release_dir }}
     composer install --prefer-dist --no-dev --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
 @endtask
 
 @task('run_yarn')
-    {{ logMessage("📦  Running Yarn...") }}
+    {{ logMessage("📦 Running Yarn...") }}
     cd {{ $new_release_dir }}
     yarn config set ignore-engines true
     yarn install --frozen-lockfile
@@ -58,13 +58,13 @@
 @endtask
 
 @task('migrate_db')
-    {{ logMessage("🙈 Migrating database...") }}
+    {{ logMessage("🙈 Migrating database") }}
     cd {{ $new_release_dir }}
     php artisan migrate --force
 @endtask
 
 @task('laravel_cache')
-    {{ logMessage("🗳 Building cache...") }}
+    {{ logMessage("🗳 Building cache") }}
     cd {{ $new_release_dir }}
     php artisan route:cache
     php artisan config:cache
