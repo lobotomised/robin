@@ -1,3 +1,5 @@
+image: registry.gitlab.com/lobotomised/robin
+
 stages:
   - preparation
   - building
@@ -139,6 +141,7 @@ deploy_production:
     - pwd
     - ls -al
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - ls -al ~/.composer/vendor/bin/
     - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA"
   artifacts:
     paths:
