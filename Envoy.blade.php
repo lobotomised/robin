@@ -12,8 +12,8 @@
     clone_repository
     run_composer
     run_yarn
+update_symlinks
     migrate_db
-    update_symlinks
 @endstory
 
 @task('clone_repository')
@@ -35,12 +35,6 @@
     yarn run production
 @endtask
 
-@task('migrate_db')
-    echo "🙈  Migrating database..."
-    cd {{ $new_release_dir }}
-    php artisan migrate --force
-@endtask
-
 @task('update_symlinks')
     echo "Linking storage directory"
     rm -rf {{ $new_release_dir }}/storage
@@ -51,4 +45,10 @@
 
     echo 'Linking current release'
     ln -nfs {{ $new_release_dir }} {{ $app_dir }}/current
+@endtask
+
+@task('migrate_db')
+echo "🙈  Migrating database..."
+cd {{ $new_release_dir }}
+php artisan migrate --force
 @endtask
