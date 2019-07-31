@@ -132,11 +132,6 @@ deploy_production:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA"
-  artifacts:
-    paths:
-      - ./storage/logs
-    expire_in: 1 days
-    when: always
   environment:
     name: production
     url: http://robin.rprevost.fr
