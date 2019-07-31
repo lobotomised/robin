@@ -140,6 +140,11 @@ deploy_production:
     - pwd
     - ls -al
     - ~/.composer/vendor/bin/envoy run deploy
+  artifacts:
+    paths:
+      - ./storage/logs
+    expire_in: 1 days
+    when: always
   environment:
     name: production
     url: http://robin.rprevost.fr
