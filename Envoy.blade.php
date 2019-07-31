@@ -37,7 +37,7 @@
 
 @task('migrate_db')
     echo "🙈  Migrating database..."
-    cd {{ $newReleaseDir }}
+    cd {{ $new_release_dir }}
     php artisan migrate --force
 @endtask
 
