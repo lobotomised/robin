@@ -44,6 +44,5 @@ class PurgePast extends Command
         if ($deleted > 0) {
             Log::info(sprintf('%s pasts have been deleted', $deleted));
         }
-
     }
 }

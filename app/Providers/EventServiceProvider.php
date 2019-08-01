@@ -16,7 +16,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         PastCreated::class => [
             SendDiscordCreatedNotification::class,
-        ]
+        ],
     ];
 
     /**

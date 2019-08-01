@@ -44,12 +44,12 @@ class DiscordMessage
 
         $payload = [
             'username' => config('app.name').' - notification',
-            'content' => $message
+            'content' => $message,
         ];
 
         $this->httpClient->request('POST', $discord_url, [
             'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
-            'form_params' => $payload
+            'form_params' => $payload,
         ]);
     }
 }
