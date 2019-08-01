@@ -7,7 +7,6 @@ use Illuminate\View\View;
 
 class PastController extends Controller
 {
-
     /**
      * @return \Illuminate\View\View
      */

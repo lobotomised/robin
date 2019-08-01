@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Past::class, function (Faker $faker) {
     return [
         'encrypted' => $faker->sha256,
-        'expire_at' => now()
+        'expire_at' => now(),
     ];
 });

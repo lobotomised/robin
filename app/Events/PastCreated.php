@@ -3,8 +3,8 @@
 namespace App\Events;
 
 use App\Models\Past;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Events\Dispatchable;
 
 class PastCreated
 {

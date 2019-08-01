@@ -13,20 +13,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Past extends Model
 {
-
     use UsesUuid;
 
     protected $fillable = [
         'encrypted',
-        'expire_at'
+        'expire_at',
     ];
 
     protected $casts = [
-        'expire_at' => 'datetime'
+        'expire_at' => 'datetime',
     ];
 
     protected $hidden = [
-        'encrypted'
+        'encrypted',
     ];
 
     protected $dispatchesEvents = [

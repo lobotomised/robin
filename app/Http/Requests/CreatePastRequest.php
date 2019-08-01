@@ -10,7 +10,6 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class CreatePastRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,10 +27,9 @@ class CreatePastRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'encrypted' => ['required', 'string',],
-            'expire'    => ['required', 'in:5m,1h,1d,1w,1m,1y']
+            'encrypted' => ['required', 'string'],
+            'expire'    => ['required', 'in:5m,1h,1d,1w,1m,1y'],
         ];
     }
 }

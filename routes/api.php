@@ -11,10 +11,9 @@
 |
 */
 
-
 Route::prefix('v1')->group(function () {
     Route::post('/past', [
         'as' => 'api.past.store',
-        'uses' => 'PastApiController@store'
+        'uses' => 'PastApiController@store',
     ]);
 });
