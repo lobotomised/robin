@@ -44,7 +44,7 @@
 
 
 @task('cleanup_build_process')
-    {{ logMessage("🗳 Building cache") }}
+    {{ logMessage("🗳 Cleanup build dependencies") }}
     cd {{ $new_release_dir }}
     rm -Rf {{ $new_release_dir }}/node_modules
 @endtask
