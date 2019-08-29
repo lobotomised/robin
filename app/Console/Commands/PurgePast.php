@@ -6,7 +6,7 @@ use App\Models\Past;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-class PurgePast extends Command
+final class PurgePast extends Command
 {
     /**
      * The name and signature of the console command.

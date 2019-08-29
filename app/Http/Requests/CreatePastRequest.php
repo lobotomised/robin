@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string encrypted
  * @property string expire
  */
-class CreatePastRequest extends FormRequest
+final class CreatePastRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

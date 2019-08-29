@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string encrypted
  * @property $this expire_at
  */
-class Past extends Model
+final class Past extends Model
 {
     use UsesUuid;
 

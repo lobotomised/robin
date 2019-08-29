@@ -6,7 +6,7 @@ use App\Models\Past;
 use Illuminate\Http\Response;
 use App\Http\Requests\CreatePastRequest;
 
-class PastApiController extends Controller
+final class PastApiController extends Controller
 {
     /**
      * @param \App\Http\Requests\CreatePastRequest $request

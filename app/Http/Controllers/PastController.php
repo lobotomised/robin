@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Past;
 use Illuminate\View\View;
 
-class PastController extends Controller
+final class PastController extends Controller
 {
     /**
      * @return \Illuminate\View\View

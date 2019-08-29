@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Events\PastCreated;
 use App\Support\DiscordMessage;
 
-class SendDiscordCreatedNotification
+final class SendDiscordCreatedNotification
 {
     /**
      * @var \App\Support\DiscordMessage

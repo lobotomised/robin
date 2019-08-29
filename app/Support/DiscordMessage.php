@@ -4,7 +4,7 @@ namespace App\Support;
 
 use GuzzleHttp\Client as HttpClient;
 
-class DiscordMessage
+final class DiscordMessage
 {
     /**
      * API HTTP client.
