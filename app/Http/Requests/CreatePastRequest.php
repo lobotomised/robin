@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -30,11 +32,11 @@ final class CreatePastRequest extends FormRequest
         return [
             'encrypted' => [
                 'required',
-                'string'
+                'string',
             ],
             'expire' => [
                 'required',
-                'in:5m,1h,1d,1w,1m,1y'
+                'in:5m,1h,1d,1w,1m,1y',
             ],
         ];
     }

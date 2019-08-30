@@ -50,5 +50,7 @@ return PhpCsFixer\Config::create()
         'protected_to_private' => true,
 
         'explicit_string_variable' => true,
+
+        'declare_strict_types' => true,
     ])
     ->setFinder($finder);

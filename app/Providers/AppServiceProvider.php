@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Entities\Past;
@@ -15,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->bind(PastRepositoryInterface::class, static function ($app) {
             return new PastRepository(
@@ -31,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function boot()
+    public function boot(): void
     {
         Schema::defaultStringLength(191);
 

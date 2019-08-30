@@ -63,6 +63,5 @@ final class DiscordMessage
         if (config('services.discord.enabled')) {
             $this->httpClient->request('POST', $discord_url, $options);
         }
-
     }
 }

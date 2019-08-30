@@ -42,6 +42,5 @@ class CarbonCopy extends Carbon
 
                 break;
         }
-
     }
 }

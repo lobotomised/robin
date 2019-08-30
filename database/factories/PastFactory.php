@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use App\Models\Past;
