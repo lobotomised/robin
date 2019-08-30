@@ -16,6 +16,7 @@ class CreatePastService
      * @var \App\Repositories\PastRepositoryInterface
      */
     private $past;
+
     /**
      * @var \Illuminate\Contracts\Events\Dispatcher
      */

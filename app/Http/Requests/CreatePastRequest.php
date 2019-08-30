@@ -29,7 +29,7 @@ final class CreatePastRequest extends FormRequest
     {
         return [
             'encrypted' => ['required', 'string'],
-            'expire'    => ['required', 'in:5m,1h,1d,1w,1m,1y'],
+            'expire' => ['required', 'in:5m,1h,1d,1w,1m,1y'],
         ];
     }
 }

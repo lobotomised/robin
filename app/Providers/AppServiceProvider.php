@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(PastRepositoryInterface::class, static function($app) {
+        $this->app->bind(PastRepositoryInterface::class, static function ($app) {
             return new PastRepository(
                 $app['em'],
                 $app['em']->getClassMetaData(Past::class)

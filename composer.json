@@ -17,13 +17,13 @@
         "laravel-doctrine/orm": "1.4.*",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "ramsey/uuid-doctrine": "^1.5",
-        "ext-http": "*"
+        "ramsey/uuid-doctrine": "^1.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
+        "friendsofphp/php-cs-fixer": "^2.15",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
@@ -65,6 +65,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "format": [
+            "vendor/bin/php-cs-fixer fix --allow-risky=yes"
         ]
     }
 }

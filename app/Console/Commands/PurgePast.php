@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Past;
 use App\Repositories\PastRepositoryInterface;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
@@ -58,6 +57,5 @@ final class PurgePast extends Command
         if ($deleted > 0) {
             $this->logger->info(sprintf('%s pasts have been deleted', $deleted));
         }
-
     }
 }

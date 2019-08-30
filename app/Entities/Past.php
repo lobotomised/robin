@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Past
 {
-
     use EntityIdTrait;
 
     /**
@@ -81,5 +80,4 @@ class Past
 
         return $this;
     }
-
 }

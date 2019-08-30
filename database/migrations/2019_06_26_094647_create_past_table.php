@@ -11,15 +11,14 @@ class CreatePastTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('pasts', static function (Blueprint $table) {
+        Schema::create('pasts', static function (Blueprint $table): void {
             $table->uuid('id')->primary();
             $table->longText('encrypted');
             $table->timestamp('created_at');
             $table->dateTime('expire_at');
         });
-
     }
 
     /**
@@ -27,7 +26,7 @@ class CreatePastTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('pasts');
     }

@@ -30,7 +30,7 @@ final class SendDiscordCreatedNotification
      * @return void
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function handle(PastCreated $event)
+    public function handle(PastCreated $event): void
     {
         $message = sprintf("@everyone Un nouveau past a été publié à l'adresse %s", route('past.view', $event->past->getId()));
 

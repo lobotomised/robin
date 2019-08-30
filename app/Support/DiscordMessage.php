@@ -11,14 +11,14 @@ final class DiscordMessage
      *
      * @var \GuzzleHttp\Client
      */
-    protected $httpClient;
+    private $httpClient;
 
     /**
      * Discord API base URL.
      *
      * @var string
      */
-    protected $baseUrl = 'https://discordapp.com/api';
+    private $baseUrl = 'https://discordapp.com/api';
 
     /**
      * @var string

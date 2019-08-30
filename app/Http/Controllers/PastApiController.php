@@ -23,5 +23,4 @@ final class PastApiController extends Controller
 
         return response(new PastResource($past), Response::HTTP_CREATED);
     }
-
 }

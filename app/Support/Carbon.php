@@ -18,21 +18,27 @@ class Carbon extends \Carbon\Carbon
         switch ($periode) {
             case '5m':
                 return \Carbon\Carbon::now()->addMinutes(5);
+
                 break;
             case '1h':
                 return \Carbon\Carbon::now()->addHour();
+
                 break;
             case '1d':
                 return \Carbon\Carbon::now()->addDay();
+
                 break;
             case '1w':
                 return \Carbon\Carbon::now()->addWeek();
+
                 break;
             case '1m':
                return \Carbon\Carbon::now()->addMonth();
+
                 break;
             case '1y':
                 return \Carbon\Carbon::now()->addYear();
+
                 break;
         }
 

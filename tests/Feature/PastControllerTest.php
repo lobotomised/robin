@@ -2,23 +2,23 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\Past;
 use App\Events\PastCreated;
-use GuzzleHttp\Psr7\Response;
+use App\Models\Past;
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Event;
+use Tests\TestCase;
 
 class PastControllerTest extends TestCase
 {
-    public function test_can_access_create_past()
+    public function test_can_access_create_past(): void
     {
         $response = $this->get(route('past.create'));
 
         $response->assertStatus(200);
     }
 
-    public function test_can_store_past()
+    public function test_can_store_past(): void
     {
         $this->mock(HttpClient::class)
             ->shouldReceive('request')
@@ -33,7 +33,7 @@ class PastControllerTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function test_can_show_past()
+    public function test_can_show_past(): void
     {
         Event::fake([
             PastCreated::class,

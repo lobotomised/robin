@@ -9,7 +9,6 @@ use Ramsey\Uuid\UuidInterface;
 
 trait EntityIdTrait
 {
-
     /**
      * @var \Ramsey\Uuid\UuidInterface
      *
@@ -24,5 +23,4 @@ trait EntityIdTrait
     {
         return $this->id;
     }
-
 }
