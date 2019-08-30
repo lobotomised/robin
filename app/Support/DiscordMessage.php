@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Support;
 
 use GuzzleHttp\Client as HttpClient;
@@ -18,7 +20,7 @@ final class DiscordMessage
      *
      * @var string
      */
-    private $baseUrl = 'https://discordapp.com/api';
+    private $baseUrl;
 
     /**
      * @var string
@@ -58,10 +60,9 @@ final class DiscordMessage
             'form_params' => $payload,
         ];
 
-        if (config('services.discord.enable') === false) {
-            return;
+        if (config('services.discord.enabled')) {
+            $this->httpClient->request('POST', $discord_url, $options);
         }
 
-        $this->httpClient->request('POST', $discord_url, $options);
     }
 }
