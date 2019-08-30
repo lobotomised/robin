@@ -11,6 +11,7 @@ use Faker\Generator as Faker;
 $factory->define(Past::class, static function (Faker $faker) {
     return [
         'encrypted' => $faker->sha256,
+        'created_at' => Carbon::now(),
         'expire_at' => Carbon::now(),
     ];
 });

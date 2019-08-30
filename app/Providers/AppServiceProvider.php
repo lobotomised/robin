@@ -7,8 +7,10 @@ namespace App\Providers;
 use App\Entities\Past;
 use App\Repositories\PastRepository;
 use App\Repositories\PastRepositoryInterface;
+use Doctrine\DBAL\Types\Type;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Ramsey\Uuid\Doctrine\UuidType;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,7 +39,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        // Tell doctrine to use this class for datetime column
-        \Doctrine\DBAL\Types\Type::addType('uuid', \Ramsey\Uuid\Doctrine\UuidType::class);
+        // Create some custom type for doctrine
+
+        // During test, look like it is loaded multiple type
+        if (!Type::hasType('uuid')) {
+            Type::addType('uuid', UuidType::class);
+        }
     }
 }
