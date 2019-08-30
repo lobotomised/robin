@@ -1,6 +1,6 @@
 preset: laravel
-disabled:
-  - unused_use
+enabled:
+  - alpha_ordered_imports
 finder:
   not-name:
     - index.php
