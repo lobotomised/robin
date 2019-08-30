@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Entities\Past;
-use App\Support\Carbon;
+use App\Support\CarbonCopy;
 use Doctrine\ORM\EntityRepository;
 
 class PastRepository extends EntityRepository implements PastRepositoryInterface
@@ -32,7 +32,7 @@ class PastRepository extends EntityRepository implements PastRepositoryInterface
     {
         return $this->createQueryBuilder('p')
             ->where('p.expire_at < :now')
-            ->setParameter('now', Carbon::now())
+            ->setParameter('now', CarbonCopy::now())
             ->delete()
             ->getQuery()
             ->execute();
