@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityRepository;
 class PastRepository extends EntityRepository implements PastRepositoryInterface
 {
     /**
+     * Persist an entity in the database
+     *
      * @param \App\Entities\Past $past
      *
      * @return \App\Entities\Past
@@ -26,7 +28,9 @@ class PastRepository extends EntityRepository implements PastRepositoryInterface
     }
 
     /**
-     * @return mixed
+     * Remove All expired past from the database
+     *
+     * @return int
      */
     public function removeExpired(): int
     {
