@@ -1,4 +1,4 @@
-@servers(['web' => 'robin@robin.rprevost.fr'])
+@servers(['web' => 'robin@robin.lobotomised.net'])
 
 @setup
     $repository = 'git@gitlab.com:lobotomised/robin.git';
