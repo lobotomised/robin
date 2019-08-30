@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Entities\Past;
 use App\Events\PastCreated;
-use App\Models\Past;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Event;
