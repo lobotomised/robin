@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Past;
+use App\Entities\Past;
 use Illuminate\View\View;
 
 final class PastController extends Controller
@@ -16,7 +16,7 @@ final class PastController extends Controller
     }
 
     /**
-     * @param \App\Models\Past $past
+     * @param \App\Entities\Past $past
      *
      * @return \Illuminate\View\View
      */
