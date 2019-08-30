@@ -35,30 +35,6 @@ final class PastApiController extends Controller
      */
     public function store(CreatePastRequest $request): Response
     {
-        switch ($request->expire) {
-            case '5m':
-                $expire = now()->addMinutes(5);
-                break;
-            case '1h':
-                $expire = now()->addHour();
-                break;
-            case '1d':
-                $expire = now()->addDay();
-                break;
-            case '1w':
-                $expire = now()->addWeek();
-                break;
-            case '1m':
-                $expire = now()->addMonth();
-                break;
-            case '1y':
-                $expire = now()->addYear();
-                break;
-            default:
-                $expire = now()->addWeek();
-                break;
-        }
-
         $past = new Past;
 
         $past->setExpireAt(Carbon::createFromPeriode($request->expire));
