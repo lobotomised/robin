@@ -38,7 +38,13 @@ final class DiscordMessage
         $this->webhook_token = config('services.discord.token');
     }
 
-    public function send($message)
+    /**
+     * Ping a message on discord
+     * @param $message
+     *
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function send($message): void
     {
         $discord_url = $this->baseUrl.'/webhooks/'.$this->webhook_id.'/'.$this->webhook_token;
 
@@ -47,9 +53,15 @@ final class DiscordMessage
             'content' => $message,
         ];
 
-        $this->httpClient->request('POST', $discord_url, [
+        $options = [
             'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
             'form_params' => $payload,
-        ]);
+        ];
+
+        if (config('services.discord.enable') === false) {
+            return;
+        }
+
+        $this->httpClient->request('POST', $discord_url, $options);
     }
 }

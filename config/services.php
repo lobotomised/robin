@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+//use App\Models\User;
 
 return [
 
@@ -37,7 +37,7 @@ return [
     ],
 
     'stripe' => [
-        'model'   => User::class,
+   //     'model'   => User::class,
         'key'     => env('STRIPE_KEY'),
         'secret'  => env('STRIPE_SECRET'),
         'webhook' => [
@@ -48,6 +48,7 @@ return [
 
     'discord' => [
         'base_url' => 'https://discordapp.com/api',
+        'enabled' => env('DISCORD_ENABLED', true),
         'id' => env('DISCORD_WEBHOOK_ID', null),
         'token' => env('DISCORD_WEBHOOK_TOKEN', null),
     ],
