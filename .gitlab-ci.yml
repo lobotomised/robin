@@ -87,12 +87,17 @@ phpunit:
   stage: testing
   services:
     - mysql:5.7
-  dependencies:
-    - build-assets
-    - composer
-    - db-seeding
+#  dependencies:
+#    - build-assets
+#    - composer
+#    - db-seeding
   script:
-    - php -v
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - cp .env.example .env
+    - php artisan key:generate
+    - php artisan migrate:fresh
+    - yarn install --pure-lockfile
+    - mysql -uhomestead -psecret robin -e 'SHOW TABLES;'
     - ./vendor/phpunit/phpunit/phpunit --version
     - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
   artifacts:
