@@ -26,7 +26,7 @@ class PastControllerTest extends TestCase
             ->andReturn(new Response(200));
 
         $response = $this->json('POST', route('api.past.store'), [
-            'expire' => '1w',
+            'expire'    => '1w',
             'encrypted' => 'data',
         ]);
 
