@@ -15,7 +15,7 @@ class PastControllerTest extends TestCase
     public function test_aaa()
     {
         dd(
-            \DB::SELECT( \DB::raw('SHOW TABLES'))
+            \DB::select('SHOW TABLES')
         );
         //DB::raw('SELECT * FROM pasts');
     }
