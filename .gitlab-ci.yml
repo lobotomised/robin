@@ -76,7 +76,7 @@ db-seeding:
     - composer
     - yarn
   script:
-    - php artisan migrate:fresh --seed
+    - php artisan doctrine:migration:migrate
   artifacts:
     paths:
       - ./storage/logs
@@ -85,15 +85,12 @@ db-seeding:
 
 phpunit:
   stage: testing
-  services:
-    - mysql:5.7
   dependencies:
     - build-assets
     - composer
     - db-seeding
   script:
     - php -v
-    - ./vendor/phpunit/phpunit/phpunit --version
     - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
   artifacts:
     paths:

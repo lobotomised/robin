@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Tests\Feature;
 
@@ -20,7 +18,7 @@ class PastControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_can_store_past(): void
+    public function test_can_store_past_request(): void
     {
         $this->mock(HttpClient::class)
             ->shouldReceive('request')
@@ -28,7 +26,7 @@ class PastControllerTest extends TestCase
             ->andReturn(new Response(200));
 
         $response = $this->json('POST', route('api.past.store'), [
-            'expire' => '1w',
+            'expire'    => '1w',
             'encrypted' => 'data',
         ]);
 
