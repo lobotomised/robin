@@ -96,6 +96,7 @@ phpunit:
     - cp .env.example .env
     - php artisan key:generate
     - yarn install --pure-lockfile
+    - yarn run production --progress false
     - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
   artifacts:
     paths:
