@@ -90,11 +90,7 @@ phpunit:
     - composer
     - db-seeding
   script:
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-    - cp .env.example .env
-    - php artisan key:generate
-    - yarn install --pure-lockfile
-    - yarn run production --progress false
+    - php -v
     - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
   artifacts:
     paths:
