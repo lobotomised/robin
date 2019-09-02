@@ -67,7 +67,7 @@
 @task('migrate_db')
     {{ logMessage("🙈 Migrating database") }}
     cd {{ $new_release_dir }}
-    php artisan doctrine:migration:migrate
+    php artisan doctrine:migration:migrate --force
 @endtask
 
 @task('laravel_cache')
