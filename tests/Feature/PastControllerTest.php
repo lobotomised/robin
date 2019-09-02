@@ -13,7 +13,7 @@ use Tests\TestCase;
 class PastControllerTest extends TestCase
 {
 
-    public function aaa_test()
+    public function test_aaa()
     {
         dd(DB::raw('SHOW TABLES'));
         //DB::raw('SELECT * FROM pasts');
