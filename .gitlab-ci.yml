@@ -85,8 +85,6 @@ cache:
 #
 phpunit:
   stage: testing
-  services:
-    - mysql:5.7
 #  dependencies:
 #    - build-assets
 #    - composer
