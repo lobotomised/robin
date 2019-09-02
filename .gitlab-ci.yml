@@ -97,7 +97,6 @@ phpunit:
     - php artisan key:generate
     - php artisan migrate:fresh
     - yarn install --pure-lockfile
-    - mysql -uhomestead -psecret robin -e 'SHOW TABLES;'
     - ./vendor/phpunit/phpunit/phpunit --version
     - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
   artifacts:
