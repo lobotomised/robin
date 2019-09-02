@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Feature;
 
@@ -11,23 +11,14 @@ use Tests\TestCase;
 
 class PastControllerTest extends TestCase
 {
-
-    public function test_aaa()
-    {
-        dd(
-            \DB::select('SHOW TABLES')
-        );
-        //DB::raw('SELECT * FROM pasts');
-    }
-
-    public function test_can_access_create_past()
+    public function test_can_access_create_past(): void
     {
         $response = $this->get(route('past.create'));
 
         $response->assertStatus(200);
     }
 
-    public function test_can_store_past()
+    public function test_can_store_past_request(): void
     {
         $this->mock(HttpClient::class)
             ->shouldReceive('request')
@@ -36,21 +27,21 @@ class PastControllerTest extends TestCase
 
         $response = $this->json('POST', route('api.past.store'), [
             'expire' => '1w',
-            'encrypted' => 'data'
+            'encrypted' => 'data',
         ]);
 
         $response->assertStatus(201);
     }
 
-    public function test_can_show_past()
+    public function test_can_show_past(): void
     {
         Event::fake([
-            PastCreated::class
+            PastCreated::class,
         ]);
 
         $past = entity(Past::class)->create();
 
-        $response = $this->get(route('past.view', $past));
+        $response = $this->get(route('past.view', $past->getId()));
 
         $response->assertStatus(200);
     }

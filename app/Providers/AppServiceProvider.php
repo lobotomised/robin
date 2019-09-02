@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         // Create some custom type for doctrine
 
         // During test, look like it is loaded multiple type
-        if (!Type::hasType('uuid')) {
+        if (! Type::hasType('uuid')) {
             Type::addType('uuid', UuidType::class);
         }
     }

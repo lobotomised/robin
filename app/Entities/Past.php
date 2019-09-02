@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks)
  */
 class Past
 {
@@ -59,6 +60,17 @@ class Past
     public function getCreatedAt(): Carbon
     {
         return $this->created_at;
+    }
+
+    /**
+     * @return \App\Entities\Past
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt(): Past
+    {
+        $this->created_at = Carbon::now();
+
+        return $this;
     }
 
     /**
