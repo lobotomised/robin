@@ -18,77 +18,77 @@ variables:
 cache:
   key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
 
-#composer:
-#  stage: preparation
-#  services:
-#    - mysql:5.7
-#  script:
-#    - php -v
-#    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-#    - cp .env.example .env
-#    - php artisan key:generate
-#  artifacts:
-#    paths:
-#      - vendor/
-#      - .env
-#    expire_in: 1 days
-#    when: always
-#  cache:
-#    paths:
-#      - vendor/
-#
-#yarn:
-#  stage: preparation
-#  script:
-#    - yarn --version
-#    - yarn install --pure-lockfile
-#  artifacts:
-#    paths:
-#      - node_modules/
-#    expire_in: 1 days
-#    when: always
-#  cache:
-#    paths:
-#      - node_modules/
-#
-#build-assets:
-#  stage: building
-#  dependencies:
-#    - composer
-#    - yarn
-#  script:
-#    - yarn --version
-#    - yarn run production --progress false
-#  artifacts:
-#    paths:
-#      - public/css/
-#      - public/js/
-#      - public/fonts/
-#      - public/mix-manifest.json
-#    expire_in: 1 days
-#    when: always
-#
-#db-seeding:
-#  stage: building
-#  services:
-#    - mysql:5.7
-#  dependencies:
-#    - composer
-#    - yarn
-#  script:
-#    - php artisan migrate:fresh --seed
-#  artifacts:
-#    paths:
-#      - ./storage/logs
-#    expire_in: 1 days
-#    when: on_failure
-#
+composer:
+  stage: preparation
+  services:
+    - mysql:5.7
+  script:
+    - php -v
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - cp .env.example .env
+    - php artisan key:generate
+  artifacts:
+    paths:
+      - vendor/
+      - .env
+    expire_in: 1 days
+    when: always
+  cache:
+    paths:
+      - vendor/
+
+yarn:
+  stage: preparation
+  script:
+    - yarn --version
+    - yarn install --pure-lockfile
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 days
+    when: always
+  cache:
+    paths:
+      - node_modules/
+
+build-assets:
+  stage: building
+  dependencies:
+    - composer
+    - yarn
+  script:
+    - yarn --version
+    - yarn run production --progress false
+  artifacts:
+    paths:
+      - public/css/
+      - public/js/
+      - public/fonts/
+      - public/mix-manifest.json
+    expire_in: 1 days
+    when: always
+
+db-seeding:
+  stage: building
+  services:
+    - mysql:5.7
+  dependencies:
+    - composer
+    - yarn
+  script:
+    - php artisan migrate:fresh --seed
+  artifacts:
+    paths:
+      - ./storage/logs
+    expire_in: 1 days
+    when: on_failure
+
 phpunit:
   stage: testing
-#  dependencies:
-#    - build-assets
-#    - composer
-#    - db-seeding
+  dependencies:
+    - build-assets
+    - composer
+    - db-seeding
   script:
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
     - cp .env.example .env
@@ -102,40 +102,40 @@ phpunit:
     expire_in: 1 days
     when: on_failure
 
-#phpcpd:
-#  stage: testing
-#  script:
-#    - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
-#    - php phpcpd.phar app/ --min-lines=50
-#  dependencies: []
-#  cache:
-#    paths:
-#      - phpcpd.phar
-#
-#sensiolabs:
-#  stage: security
-#  script:
-#    - test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
-#    - cd security-checker
-#    - composer install
-#    - php security-checker security:check ../composer.lock
-#  dependencies: []
-#  cache:
-#    paths:
-#      - security-checker/
-#
-#deploy_production:
-#  stage: deploy
-#  script:
-#    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#    - eval $(ssh-agent -s)
-#    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-#    - mkdir -p ~/.ssh
-#    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-#    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA"
-#  environment:
-#    name: production
-#    url: http://robin.rprevost.fr
-#  when: manual
-#  only:
-#    - master
+phpcpd:
+  stage: testing
+  script:
+    - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
+    - php phpcpd.phar app/ --min-lines=50
+  dependencies: []
+  cache:
+    paths:
+      - phpcpd.phar
+
+sensiolabs:
+  stage: security
+  script:
+    - test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
+    - cd security-checker
+    - composer install
+    - php security-checker security:check ../composer.lock
+  dependencies: []
+  cache:
+    paths:
+      - security-checker/
+
+deploy_production:
+  stage: deploy
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA"
+  environment:
+    name: production
+    url: http://robin.rprevost.fr
+  when: manual
+  only:
+    - master
