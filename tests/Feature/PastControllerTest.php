@@ -6,7 +6,6 @@ use App\Entities\Past;
 use App\Events\PastCreated;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Psr7\Response;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
@@ -15,7 +14,9 @@ class PastControllerTest extends TestCase
 
     public function test_aaa()
     {
-        dd(DB::SELECT( DB::raw('SHOW TABLES')));
+        dd(
+            \DB::SELECT( \DB::raw('SHOW TABLES'))
+        );
         //DB::raw('SELECT * FROM pasts');
     }
 
