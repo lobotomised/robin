@@ -1,6 +1,8 @@
-/node_modules
+/.idea
 /public/hot
 /public/storage
+/public/build
+/node_modules
 /storage/*.key
 /vendor
 .env
@@ -12,5 +14,4 @@ yarn-error.log
 _ide_helper.php
 _ide_helper_models.php
 .phpstorm.meta.php
-/.idea
-/.php_cs.cache
+.php_cs.cache
