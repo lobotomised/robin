@@ -18,7 +18,8 @@
         "laravel-doctrine/orm": "1.4.*",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "ramsey/uuid-doctrine": "^1.5"
+        "ramsey/uuid-doctrine": "^1.5",
+        "sentry/sentry-laravel": "1.1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

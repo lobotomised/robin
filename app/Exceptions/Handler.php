@@ -38,6 +38,10 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception): void
     {
+        if ($this->shouldReport($exception) && app()->isProduction() && app()->bound('sentry')) {
+            app('sentry')->captureException($exception);
+        }
+
         parent::report($exception);
     }
 
