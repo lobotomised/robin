@@ -98,7 +98,7 @@
     {{ logMessage('write current commit sha') }}
     cd {{ $new_release_dir }}
     @if ($commit)
-        echo release: {{ $commit }} > public/release.txt
+        echo {{ $commit }} > public/release
     @endif
 @endtask
 
