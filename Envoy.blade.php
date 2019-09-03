@@ -17,9 +17,11 @@
     clone_repository
     run_composer
     run_yarn
+    down
     update_symlinks
     migrate_db
     laravel_cache
+    up
     remove_old_release
 @endstory
 
@@ -50,6 +52,12 @@
     rm -Rf {{ $new_release_dir }}/node_modules
 @endtask
 
+@task('down')
+    {{ logMessage("Laravel go into maintenance mode") }}
+    cd {{ $new_release_dir }}
+    php artisan down
+@endtash
+
 @task('update_symlinks')
     {{ logMessage("🔄 Linking storage directory") }}
 
@@ -78,6 +86,12 @@
     php artisan config:cache
     php artisan view:cache
 @endtask
+
+@task('up')
+    {{ logMessage("Laravel go out of maintenance mode") }}
+    cd {{ $new_release_dir }}
+    php artisan up
+@endtash
 
 @task('remove_old_release')
     {{ logMessage("⛏ Removing old release") }}
