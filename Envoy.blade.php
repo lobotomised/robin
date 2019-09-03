@@ -22,6 +22,7 @@
     migrate_db
     laravel_cache
     up
+    publish_commit_sha
     remove_old_release
 @endstory
 
@@ -92,6 +93,14 @@
     cd {{ $new_release_dir }}
     php artisan up
 @endtash
+
+@task('publish_commit_sha')
+    {{ logMessage('write current commit sha') }}
+    cd {{ $new_release_dir }}
+    @if ($commit)
+        echo release: {{ $commit }} > public/release.txt
+    @endif
+@endtask
 
 @task('remove_old_release')
     {{ logMessage("⛏ Removing old release") }}
