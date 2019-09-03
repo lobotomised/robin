@@ -4,7 +4,7 @@
     $repository = 'git@gitlab.com:lobotomised/robin.git';
     $releases_dir = '/var/www/robin/releases';
     $app_dir = '/var/www/robin/current';
-    $release = date('YmdHis');
+    $release = date('Y-m-d H:i:s');
     $new_release_dir = $releases_dir .'/'. $release;
 
     function logMessage($message) {
@@ -46,7 +46,6 @@
     yarn install --frozen-lockfile
     yarn run production
 @endtask
-
 
 @task('cleanup_build_process')
     {{ logMessage("🗳 Cleanup build dependencies") }}
