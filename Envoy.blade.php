@@ -17,6 +17,7 @@
     clone_repository
     run_composer
     run_yarn
+    cleanup_build_process
     down
     update_symlinks
     migrate_db
