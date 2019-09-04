@@ -44,7 +44,7 @@ final class PurgePast extends Command
     {
         parent::__construct();
         $this->pastRepository = $pastRepository;
-        $this->logger = $logger;
+        $this->logger         = $logger;
     }
 
     /**

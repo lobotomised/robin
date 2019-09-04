@@ -34,9 +34,9 @@ final class DiscordMessage
 
     public function __construct(HttpClient $httpClient)
     {
-        $this->httpClient = $httpClient;
-        $this->baseUrl = config('services.discord.base_url');
-        $this->webhook_id = config('services.discord.id');
+        $this->httpClient    = $httpClient;
+        $this->baseUrl       = config('services.discord.base_url');
+        $this->webhook_id    = config('services.discord.id');
         $this->webhook_token = config('services.discord.token');
     }
 
@@ -52,11 +52,11 @@ final class DiscordMessage
 
         $payload = [
             'username' => config('app.name').' - notification',
-            'content' => $message,
+            'content'  => $message,
         ];
 
         $options = [
-            'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
+            'headers'     => ['Content-Type' => 'application/x-www-form-urlencoded'],
             'form_params' => $payload,
         ];
 

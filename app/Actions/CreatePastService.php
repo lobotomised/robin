@@ -30,7 +30,7 @@ class CreatePastService
      */
     public function __construct(PastRepositoryInterface $past, Dispatcher $dispatcher)
     {
-        $this->past = $past;
+        $this->past       = $past;
         $this->dispatcher = $dispatcher;
     }
 

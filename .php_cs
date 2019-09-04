@@ -19,18 +19,19 @@ return PhpCsFixer\Config::create()
     ->setRules([
         '@PSR2' => true,
 
-        'array_syntax' => ['syntax' => 'short'],
+        'blank_line_after_opening_tag' => true,
+
         'trailing_comma_in_multiline_array' => true,
 
         'ordered_imports' => ['sortAlgorithm' => 'alpha'],
         'no_unused_imports' => true,
 
         'unary_operator_spaces' => true,
-        'binary_operator_spaces' => true,
+        'binary_operator_spaces' => [ 'default' => 'align' ],
         'cast_spaces' => true,
         'not_operator_with_successor_space' => true,
 
-
+        'declare_strict_types' => true,
         'blank_line_before_statement' => [
             'statements' => ['break', 'continue', 'declare', 'return', 'throw', 'try'],
         ],
@@ -50,7 +51,6 @@ return PhpCsFixer\Config::create()
         'protected_to_private' => true,
 
         'explicit_string_variable' => true,
-
-        'declare_strict_types' => true,
     ])
+    ->setLineEnding("\r\n")
     ->setFinder($finder);

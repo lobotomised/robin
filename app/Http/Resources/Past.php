@@ -18,7 +18,7 @@ final class Past extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->getId(),
+            'id'        => $this->getId(),
             'expire_at' => $this->getExpireAt(),
         ];
     }
