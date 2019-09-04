@@ -131,7 +131,7 @@ deploy_production:
     - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA"
   environment:
     name: production
-    url: http://robin.rprevost.fr
+    url: http://robin.lobotomised.net
   when: manual
   only:
     - master
