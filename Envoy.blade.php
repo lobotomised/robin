@@ -8,7 +8,7 @@
     $new_release_dir = $releases_dir .'/'. $release;
 
     function logMessage($message) {
-        $tag = '['.date('Y-m-d H:i:s').'] ';
+        $tag = '['.date('Y-m-d_H:i:s').'] ';
         return "echo '\033[32m" .$tag.$message. "\033[0m';\n";
     }
 @endsetup
