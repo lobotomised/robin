@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Entities\Past;
 use App\Events\PastCreated;
-use App\Repositories\PastRepositoryInterface;
+use App\Models\Past;
 use Carbon\Carbon;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class CreatePastService
+class CreatePastAction
 {
     /**
-     * @var \App\Repositories\PastRepositoryInterface
+     * @var \App\Models\Past
      */
     private $past;
 
@@ -25,10 +24,10 @@ class CreatePastService
     /**
      * CreatePastService constructor.
      *
-     * @param \App\Repositories\PastRepositoryInterface $past
+     * @param \App\Models\Past $past
      * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
      */
-    public function __construct(PastRepositoryInterface $past, Dispatcher $dispatcher)
+    public function __construct(Past $past, Dispatcher $dispatcher)
     {
         $this->past       = $past;
         $this->dispatcher = $dispatcher;
@@ -38,19 +37,17 @@ class CreatePastService
      * @param string $encrypted
      * @param \Carbon\Carbon $expire_at
      *
-     * @return \App\Entities\Past
+     * @return \App\Models\Past
      */
     public function __invoke(string $encrypted, Carbon $expire_at): Past
     {
-        $past = new Past;
+        $this->past->encrypted = $encrypted;
+        $this->past->expire_at = $expire_at;
 
-        $past->setEncrypted($encrypted);
-        $past->setExpireAt($expire_at);
+        $this->past->save();
 
-        $past = $this->past->save($past);
-        
-        $this->dispatcher->dispatch(new PastCreated($past));
+        $this->dispatcher->dispatch(new PastCreated($this->past));
 
-        return $past;
+        return $this->past;
     }
 }

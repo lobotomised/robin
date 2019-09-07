@@ -34,7 +34,7 @@ final class SendDiscordCreatedNotification
      */
     public function handle(PastCreated $event): void
     {
-        $message = sprintf("@everyone Un nouveau past a été publié à l'adresse %s", route('past.view', $event->past->getId()));
+        $message = sprintf("@everyone Un nouveau past a été publié à l'adresse %s", route('past.view', $event->past->id));
 
         $this->discord->send($message);
     }

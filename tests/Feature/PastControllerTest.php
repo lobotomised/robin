@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Entities\Past;
-use App\Events\PastCreated;
+use App\Models\Past;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Psr7\Response;
-use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class PastControllerTest extends TestCase
@@ -20,11 +18,10 @@ class PastControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_can_store_past_request(): void
+    public function test_can_store_past(): void
     {
         $this->mock(HttpClient::class)
             ->shouldReceive('request')
-            ->once()
             ->andReturn(new Response(200));
 
         $response = $this->json('POST', route('api.past.store'), [
@@ -37,13 +34,13 @@ class PastControllerTest extends TestCase
 
     public function test_can_show_past(): void
     {
-        Event::fake([
-            PastCreated::class,
-        ]);
+        $this->mock(HttpClient::class)
+            ->shouldReceive('request')
+            ->andReturn(new Response(200));
 
-        $past = entity(Past::class)->create();
+        $past = factory(Past::class)->create();
 
-        $response = $this->get(route('past.view', $past->getId()));
+        $response = $this->get(route('past.view', $past));
 
         $response->assertStatus(200);
     }

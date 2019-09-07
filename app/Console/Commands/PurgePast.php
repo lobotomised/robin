@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\PastRepositoryInterface;
+use App\Actions\DeleteExpiredPastAction;
 use Illuminate\Console\Command;
-use Psr\Log\LoggerInterface;
 
 final class PurgePast extends Command
 {
@@ -25,26 +24,19 @@ final class PurgePast extends Command
     protected $description = 'delete pasts that have expired';
 
     /**
-     * @var \App\Repositories\PastRepositoryInterface
+     * @var \App\Actions\DeleteExpiredPastAction
      */
-    private $pastRepository;
-
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
+    private $deletePast;
 
     /**
      * Create a new command instance.
      *
-     * @param \App\Repositories\PastRepositoryInterface $pastRepository
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param \App\Actions\DeleteExpiredPastAction $deletePast
      */
-    public function __construct(PastRepositoryInterface $pastRepository, LoggerInterface $logger)
+    public function __construct(DeleteExpiredPastAction $deletePast)
     {
         parent::__construct();
-        $this->pastRepository = $pastRepository;
-        $this->logger         = $logger;
+        $this->deletePast = $deletePast;
     }
 
     /**
@@ -54,10 +46,6 @@ final class PurgePast extends Command
      */
     public function handle(): void
     {
-        $deleted = $this->pastRepository->removeExpired();
-
-        if ($deleted > 0) {
-            $this->logger->info(sprintf('%s pasts have been deleted', $deleted));
-        }
+        $this->deletePast->delete();
     }
 }

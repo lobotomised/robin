@@ -76,7 +76,7 @@ db-seeding:
     - composer
     - yarn
   script:
-    - php artisan doctrine:migration:migrate
+    - php artisan migrate
   artifacts:
     paths:
       - ./storage/logs
