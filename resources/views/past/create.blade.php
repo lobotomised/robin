@@ -32,10 +32,10 @@
             </div>
 
             <div class="form-group ml-sm-3 mb-2">
-                <label for="passd">Mot de passe&nbsp;</label>
+                <label for="passwd">Mot de passe&nbsp;</label>
 
                 <div class="mb-2">
-                    <input type="text" class="form-control" id="passwd" pattern=".{3,}" required>
+                    <input type="text" class="form-control" id="passwd" pattern=".{6,}" required>
                 </div>
 
             </div>
