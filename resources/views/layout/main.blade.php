@@ -20,6 +20,14 @@
             <a href="{{ route('past.create') }}">RoBin</a></h1>
     </header>
     <main>
+        <noscript>
+            <div class="col-sm-12 col-xs-12">
+                <div class="alert alert-danger">
+                    <strong>Le Javascript est désactivé. L'application ne pourra fonctionner correctement.</strong>
+                </div>
+            </div>
+        </noscript>
+
         @yield('content')
     </main>
 
