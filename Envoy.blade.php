@@ -4,7 +4,7 @@
     $repository = 'git@gitlab.com:lobotomised/robin.git';
     $releases_dir = '/var/www/robin/releases';
     $app_dir = '/var/www/robin/current';
-    $release = date('Y-m-d H:i:s');
+    $release = date('Y-m-d_H:i:s');
     $new_release_dir = $releases_dir .'/'. $release;
 
     function logMessage($message) {
