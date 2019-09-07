@@ -4,11 +4,11 @@
     $repository = 'git@gitlab.com:lobotomised/robin.git';
     $releases_dir = '/var/www/robin/releases';
     $app_dir = '/var/www/robin/current';
-    $release = date('Y-m-d_H:i:s');
-    $new_release_dir = $releases_dir .'/'. $release;
+    $release_name = date('Y-m-d_H-i-s');
+    $new_release_dir = $releases_dir .'/'. $release_name;
 
     function logMessage($message) {
-        $tag = '['.date('Y-m-d_H:i:s').'] ';
+        $tag = '['.date('Y-m-d_H-i-s').'] ';
         return "echo '\033[32m" .$tag.$message. "\033[0m';\n";
     }
 @endsetup
@@ -55,9 +55,11 @@
 
 @task('down')
     {{ logMessage("Laravel go into maintenance mode") }}
+    cd {{ $app_dir }}/current
+    php artisan down --message="Upgrading..." --retry=60
     cd {{ $new_release_dir }}
-    php artisan down
-@endtash
+    php artisan down --message="Upgrading..." --retry=60
+@endtask
 
 @task('update_symlinks')
     {{ logMessage("🔄 Linking storage directory") }}
@@ -67,17 +69,17 @@
     ln -nfs {{ $app_dir }}/storage {{ $new_release_dir }}/storage
 
     # Link the .env
-    echo 'Linking .env file'
+    {{ logMessage("Linking .env file") }}
     ln -nfs {{ $app_dir }}/.env {{ $new_release_dir }}/.env
 
-    echo 'Linking current release'
+    {{ logMessage("Linking current release") }}
     ln -nfs {{ $new_release_dir }} {{ $app_dir }}/current
 @endtask
 
 @task('migrate_db')
     {{ logMessage("🙈 Migrating database") }}
     cd {{ $new_release_dir }}
-    php artisan doctrine:migration:migrate --force
+    php artisan migrate --force
 @endtask
 
 @task('laravel_cache')
@@ -92,13 +94,12 @@
     {{ logMessage("Laravel go out of maintenance mode") }}
     cd {{ $new_release_dir }}
     php artisan up
-@endtash
+@endtask
 
 @task('publish_commit_sha')
-    {{ logMessage('write current commit sha') }}
-    cd {{ $new_release_dir }}
     @if ($commit)
-        echo {{ $commit }} > public/release
+        {{ logMessage('write current commit sha') }}
+        echo {{ $commit }} > {{ $new_release_dir }}/public/release
     @endif
 @endtask
 
