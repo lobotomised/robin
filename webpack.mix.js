@@ -18,14 +18,8 @@ mix.disableNotifications()
     .version();
 
 mix.browserSync({
-    proxy: 'http://robin.test/',
-    host: 'robin.test',
+    proxy: 'http://localhost:8000/',
     port: 3000,
     ui: false,
-    open: false,
-    files: [
-        'resources/views/!**!/!*.php',
-        'resources/js/!*.js',
-        'resources/css/!*.scss',
-    ],
+    open: true,
 });
