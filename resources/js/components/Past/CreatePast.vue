@@ -22,7 +22,7 @@
                         Expire dans
                     </label>
                     <select id="expire"
-                            class=""
+                            class="ml-0"
                             v-model="expire"
                             required
                     >

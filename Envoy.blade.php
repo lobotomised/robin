@@ -98,7 +98,7 @@
 @task('publish_commit_sha')
     @if ($commit)
         {{ logMessage('write current commit sha') }}
-        echo {{ $commit }} > {{ $new_release_dir }}/public/release
+        echo {{ $commit }} > {{ $new_release_dir }}/commit_sha
     @endif
 @endtask
 
