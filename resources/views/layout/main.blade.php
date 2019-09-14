@@ -15,9 +15,10 @@
 <body class="bg-dark-light text-dark-font">
 
 <div class="w-full max-w-screen-xl mx-auto px-6">
-    <header class="mt-8 mb-16 ml-16">
-        <h1 class="text-5xl">
-            <a href="{{ route('past.create') }}">RoBin</a></h1>
+    <header class="mt-8 mb-12 ml-16">
+        <h1 class="text-4xl font-bold font-mono">
+            <a href="{{ route('past.create') }}">RoBin</a>
+        </h1>
     </header>
 
     <main>

@@ -8,45 +8,52 @@
                     Entrer votre texte ici
                 </label>
                 <textarea id="bin"
-                          class="appearance-none w-full mt-1 mb-6"
-                          rows="14"
+                          class="appearance-none w-full mt-1"
+                          rows="10"
                           type="text"
                           v-model="txt"
                 ></textarea>
             </div>
-            <div class="mb-4 ml-4">
-                <label for="expire">
-                    Expire dans
-                </label>
-                <select id="expire"
-                        class=""
-                        v-model="expire"
-                        required
-                >
-                    <option value="5m">5 minutes</option>
-                    <option value="1h">1 heure</option>
-                    <option value="1d">1 jour</option>
-                    <option value="1w">1 semaine</option>
-                    <option value="1m">1 mois</option>
-                    <option value="1y">1 an</option>
-                </select>
-                <label for="passwd"
-                       class="ml-10"
-                >
-                    Mot de passe
-                </label>
-                <input id="passwd"
-                       type="text"
-                       class="appearance-none shadow-none"
-                       pattern=".{6,}"
-                       v-model="passwd"
-                       required
-                >
-                <button id="create"
-                        class="appearance-none ml-10 bg-dark-med border-black"
-                >
-                    Valider
-                </button>
+            <div class="mb-4 ">
+                <div class="mt-6">
+                    <label for="expire"
+                           class="md:inline block"
+                    >
+                        Expire dans
+                    </label>
+                    <select id="expire"
+                            class=""
+                            v-model="expire"
+                            required
+                    >
+                        <option value="5m">5 minutes</option>
+                        <option value="1h">1 heure</option>
+                        <option value="1d">1 jour</option>
+                        <option value="1w">1 semaine</option>
+                        <option value="1m">1 mois</option>
+                        <option value="1y">1 an</option>
+                    </select>
+                </div>
+                <div class="mt-6">
+                    <label for="passwd"
+                    >
+                        Mot de passe
+                    </label>
+                    <input id="passwd"
+                           type="text"
+                           class="appearance-none shadow-none ml-0 md:inline block"
+                           pattern=".{6,}"
+                           v-model="passwd"
+                           required
+                    >
+                </div>
+                <div class="mt-6">
+                    <button id="create"
+                            class="appearance-none bg-dark-med border-black"
+                    >
+                        Valider
+                    </button>
+                </div>
             </div>
         </form>
         <notification ref="notify"></notification>
@@ -55,7 +62,7 @@
 
 <script>
     import Notification from "../Notification";
-    import { AES } from 'crypto-js';
+    import {AES} from 'crypto-js';
 
     export default {
         name: "CreatePast",
