@@ -2,6 +2,7 @@
 @section('content')
 
     <?php /** @var \App\Models\Past $request */ ?>
+    <!--
     <div id="cipher" class="d-none">{{ $past->encrypted }}</div>
 
     <form class="need-validation" id="show-past" novalidate>
@@ -34,4 +35,13 @@
         <button type="submit" class="btn btn-primary" id="decrypt">Dechiffrer</button>
 
     </form>
+    -->
+
+    <div id="app">
+        <show-past
+            :encrypted="'{{ $past->encrypted }}'"
+            :create_at="'{{ $past->created_at->format('Y-m-d H:m:s') }}'"
+            :expire_at="'{{ $past->expire_at->format('Y-m-d H:m:s') }}'"
+        ></show-past>
+    </div>
 @endsection

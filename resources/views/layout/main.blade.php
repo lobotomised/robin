@@ -12,48 +12,24 @@
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}" media="screen" type="text/css">
 
 </head>
-<body>
+<body class="bg-dark-light text-dark-font">
 
-<div class="container">
-    <header>
-        <h1 class="mx-auto">
+<div class="w-full max-w-screen-xl mx-auto px-6">
+    <header class="mt-8 mb-16 ml-16">
+        <h1 class="text-5xl">
             <a href="{{ route('past.create') }}">RoBin</a></h1>
     </header>
+
     <main>
         <noscript>
-            <div class="col-sm-12 col-xs-12">
-                <div class="alert alert-danger">
-                    <strong>Le Javascript est désactivé. L'application ne pourra fonctionner correctement.</strong>
-                </div>
+            <div class="bg-danger text-white p-5">
+                <strong>Le Javascript est désactivé. L'application ne pourra pas fonctionner correctement.</strong>
             </div>
         </noscript>
 
         @yield('content')
+
     </main>
-
-    <transition name="modal" id="modal" class="modal-close">
-        <div class="modal-mask">
-            <div class="modal-wrapper" id="modal-wrapper">
-                <div class="modal-container">
-                    <div class="modal-header">
-                        <slot name="header" id="modal-message"></slot>
-                    </div>
-
-                    <div class="modal-body">
-                        <slot name="body" id="modal-error"></slot>
-                    </div>
-
-                    <div class="modal-footer">
-                        <slot name="footer">
-                            <button class="btn btn-primary modal-default-button" id="modal-close">
-                                OK
-                            </button>
-                        </slot>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </transition>
 
 </div>
 

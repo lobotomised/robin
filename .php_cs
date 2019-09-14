@@ -52,5 +52,5 @@ return PhpCsFixer\Config::create()
 
         'explicit_string_variable' => true,
     ])
-    ->setLineEnding("\r\n")
+    ->setLineEnding("\n")
     ->setFinder($finder);

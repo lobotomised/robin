@@ -50,10 +50,10 @@ class PastControllerTest extends TestCase
             PastCreated::class,
         ]);
 
-       $past = factory(Past::class)->create();
+        $past = factory(Past::class)->create();
 
-       $response = $this->get(route('past.view', $past));
+        $response = $this->get(route('past.view', $past));
 
-       $response->assertStatus(200);
+        $response->assertStatus(200);
     }
 }
