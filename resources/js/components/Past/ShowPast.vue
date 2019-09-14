@@ -21,27 +21,25 @@
                 >{{ message }}</textarea>
             </div>
 
-            <transition name="fade" >
-                <div class="mb-12 password" v-show="showPasswd">
-                    <label for="passwd"
-                           class="ml-10"
-                    >
-                        Mot de passe
-                    </label>
-                    <input id="passwd"
-                           type="text"
-                           class="shadow-none appearance-none"
-                           pattern=".{6,}"
-                           v-model="passwd"
-                           required
-                    >
-                    <button id="create"
-                            class="appearance-none ml-10 bg-dark-med border-black"
-                    >
-                        Valider
-                    </button>
-                </div>
-            </transition>
+            <div v-if="showPasswd">
+                <label for="passwd"
+                       class="ml-1 md:ml-4"
+                >
+                    Mot de passe
+                </label>
+                <input id="passwd"
+                       type="text"
+                       class="shadow-none appearance-none"
+                       pattern=".{6,}"
+                       v-model="passwd"
+                       required
+                >
+                <button id="create"
+                        class="appearance-none bg-dark-med border-black mt-3 md:mt-0 "
+                >
+                    Valider
+                </button>
+            </div>
         </form>
         <Notification ref="notify"></Notification>
     </div>
@@ -72,7 +70,7 @@
         methods: {
             onDecrypt() {
                 let txt = AES.decrypt(this.encrypted, this.passwd).toString(enc.Utf8);
-                if(txt.length === 0) {
+                if (txt.length === 0) {
                     this.$refs.notify.open("Déchiffrement impossible avec ce mot de passe", "alert");
                 } else {
                     this.$refs.notify.open("Message dechiffré", "success", 2);
@@ -84,7 +82,7 @@
         },
         computed: {
             message() {
-                if(this.txt.length === 0) {
+                if (this.txt.length === 0) {
                     return this.encrypted;
                 }
                 return this.txt
@@ -97,6 +95,7 @@
     .fade-enter-active, .fade-leave-active {
         transition: opacity .3s;
     }
+
     .fade-enter, .fade-leave-to {
         opacity: 0;
     }
