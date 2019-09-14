@@ -35,8 +35,9 @@ if(mix.inProduction()) {
 
 if (process.env.NODE_ENV === 'development') {
     mix.browserSync({
+        proxy: 'http://robin.test/',
+        host: 'robin.test',
         port: 3000,
-        proxy: 'http://localhost:8000/',
         ui: false,
         open: false,
     });
