@@ -60,6 +60,10 @@
         @apply block fixed bottom-0 right-0 w-auto max-w-xs break-words m-6 p-4 rounded-lg z-50 notification-animate cursor-auto;
     }
 
+    .c-pointer {
+        cursor: pointer;
+    }
+
     .success {
         @apply bg-success text-black;
     }
