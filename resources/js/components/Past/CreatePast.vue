@@ -3,7 +3,6 @@
         <form @submit.prevent="onSubmit">
             <div class="mb-4">
                 <label for="bin"
-                       class="ml-4"
                 >
                     Entrer votre texte ici
                 </label>

@@ -21,25 +21,27 @@
                 >{{ message }}</textarea>
             </div>
 
-            <div v-if="showPasswd">
+            <div class="mt-6" v-if="showPasswd">
                 <label for="passwd"
-                       class="ml-1 md:ml-4"
                 >
                     Mot de passe
                 </label>
                 <input id="passwd"
                        type="text"
-                       class="shadow-none appearance-none"
+                       class="appearance-none shadow-none ml-0 md:inline block"
                        pattern=".{6,}"
                        v-model="passwd"
                        required
                 >
+            </div>
+            <div class="mt-6">
                 <button id="create"
-                        class="appearance-none bg-dark-med border-black mt-3 md:mt-0 "
+                        class="appearance-none bg-dark-med border-black"
                 >
                     Valider
                 </button>
             </div>
+
         </form>
         <Notification ref="notify"></Notification>
     </div>
