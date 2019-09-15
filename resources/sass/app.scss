@@ -5,6 +5,13 @@
 
 @tailwind utilities;
 
+$FontPathOpenSans: "../fonts/open-sans";
+@import '~open-sans-fonts/open-sans-bold';
+
+.font-opensans {
+    font-family: "Open Sans", "Arial", sans-serif;
+}
+
 textarea, select, input, button {
     @apply bg-dark-gray text-dark-font font-sans border-dark-font border border-solid rounded py-2 px-3 leading-tight;
 }

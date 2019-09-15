@@ -17,7 +17,7 @@
 
 <div class="w-full max-w-screen-xl mx-auto px-6">
     <header class="mt-8 mb-12 ml-16">
-        <h1 class="text-4xl font-bold font-mono">
+        <h1 class="text-4xl font-bold font-opensans">
             <a href="{{ route('past.create') }}">RoBin</a>
         </h1>
     </header>
