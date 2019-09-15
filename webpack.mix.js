@@ -15,7 +15,7 @@ mix
         processCssUrls: false,
         postCss: [ tailwindcss('./tailwind.config.js') ],
     })
-    .copy('./node_modules/open-sans-fonts/open-sans/bold', 'public/fonts/open-sans/bold')
+    .copy('./node_modules/open-sans-fonts/open-sans/Bold', 'public/fonts/open-sans/Bold')
 ;
 
 if(mix.inProduction()) {
