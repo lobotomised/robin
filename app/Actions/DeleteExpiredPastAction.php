@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Models\Past;
-use Carbon\Carbon;
 use Psr\Log\LoggerInterface;
 
 class DeleteExpiredPastAction
