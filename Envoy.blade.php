@@ -14,6 +14,7 @@
 
 @story('deploy')
     clone_repository
+    publish_commit_sha
     run_composer
     run_yarn
     cleanup_build_process
@@ -21,7 +22,6 @@
     update_symlinks
     migrate_db
     laravel_cache
-    publish_commit_sha
     up
     remove_old_release
 @endstory
@@ -30,6 +30,13 @@
     {{ logMessage("🌀 Cloning repository") }}
     [ -d {{ $releases_dir }} ] || mkdir {{ $releases_dir }}
     git clone --depth 1 {{ $repository }} {{ $new_release_dir }}
+@endtask
+
+@task('publish_commit_sha')
+    @if ($commit)
+        {{ logMessage('write current commit sha') }}
+        echo {{ $commit }} > {{ $new_release_dir }}/commit_sha
+    @endif
 @endtask
 
 @task('run_composer')
@@ -87,13 +94,6 @@
     php artisan route:cache
     php artisan config:cache
     php artisan view:cache
-@endtask
-
-@task('publish_commit_sha')
-@if ($commit)
-    {{ logMessage('write current commit sha') }}
-    echo {{ $commit }} > {{ $new_release_dir }}/commit_sha
-@endif
 @endtask
 
 @task('up')
