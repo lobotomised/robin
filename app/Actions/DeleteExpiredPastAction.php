@@ -33,11 +33,11 @@ class DeleteExpiredPastAction
     }
 
     /**
-     *
+     * @throws \Exception
      */
     public function delete(): void
     {
-        $delete = $this->past->newQuery()->where('expire_at', '<=', Carbon::now())->delete();
+        $delete = $this->past->expired()->delete();
 
         if ($delete > 0) {
             $this->logger->info(sprintf('% old pasts have been deleted', $delete));

@@ -6,12 +6,15 @@ namespace App\Models;
 
 use App\Events\PastCreated;
 use App\Models\Concerns\UsesUuid;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string id
  * @property string encrypted
  * @property $this expire_at
+ * @method static Builder|Past expired()
  */
 final class Past extends Model
 {
@@ -33,4 +36,9 @@ final class Past extends Model
     protected $dispatchesEvents = [
         'created' => PastCreated::class,
     ];
+
+    public function scopeExpired(Builder $query): Builder
+    {
+        return $query->where('expire_at', '<=', Carbon::now());
+    }
 }
