@@ -91,7 +91,7 @@ phpunit:
     - db-seeding
   script:
     - php -v
-    - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
+    - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --coverage-text --colors=never --stderr
   artifacts:
     paths:
       - ./storage/logs
