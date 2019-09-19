@@ -43,4 +43,24 @@ class DeleteOldPastTest extends TestCase
             'id' => $past->id,
         ]);
     }
+
+    /**
+     * @test
+     */
+    public function unexpired_past_should_not_be_deleted(): void
+    {
+        Event::fake([
+            PastCreated::class,
+        ]);
+
+        $past = factory(Past::class)->create([
+            'expire_at' => Carbon::now()->addMonth(),
+        ]);
+
+        $this->deleteExpiredPastAction->delete();
+
+        $this->assertDatabaseHas('Pasts', [
+            'id' => $past->id,
+        ]);
+    }
 }
