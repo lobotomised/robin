@@ -91,6 +91,7 @@ phpunit:
     - db-seeding
   script:
     - php -v
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
     - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
   artifacts:
     paths:
@@ -102,6 +103,7 @@ phpcpd:
   stage: testing
   script:
     - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
     - php phpcpd.phar app/ --min-lines=50
   dependencies: []
   cache:
