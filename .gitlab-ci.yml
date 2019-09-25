@@ -92,7 +92,7 @@ phpunit:
   script:
     - php -v
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-    - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
+    - php ./vendor/phpunit/phpunit/phpunit -v --colors=never --coverage-text
   artifacts:
     paths:
       - ./storage/logs
