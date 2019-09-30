@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string id
  * @property string encrypted
  * @property $this expire_at
- * @method static Builder|Past expired()
+ * @method static Builder|Past whereExpired()
  */
 final class Past extends Model
 {
@@ -40,5 +40,43 @@ final class Past extends Model
     public function scopeExpired(Builder $query): Builder
     {
         return $query->where('expire_at', '<=', Carbon::now());
+    }
+
+    /**
+     * @param string $periode
+     *
+     * @return $this
+     */
+    public function setExpireFromPeriode(string $periode): self
+    {
+        switch ($periode) {
+            case '5m':
+                $this->attributes['expire_at'] =  Carbon::now()->addMinutes(5);
+
+                break;
+            case '1h':
+                $this->attributes['expire_at'] =  Carbon::now()->addHour();
+
+                break;
+            case '1d':
+                $this->attributes['expire_at'] =  Carbon::now()->addDay();
+
+                break;
+            // '1w' correspond au cas par défaut, il va être ignoré ici
+            case '1m':
+                $this->attributes['expire_at'] =  Carbon::now()->addMonth();
+
+                break;
+            case '1y':
+                $this->attributes['expire_at'] =  Carbon::now()->addYear();
+
+                break;
+            default:
+                $this->attributes['expire_at'] =  Carbon::now()->addWeek();
+
+                break;
+        }
+
+        return $this;
     }
 }
