@@ -37,7 +37,7 @@ final class Past extends Model
         'created' => PastCreated::class,
     ];
 
-    public function scopeExpired(Builder $query): Builder
+    public function scopeWhereExpired(Builder $query): Builder
     {
         return $query->where('expire_at', '<=', Carbon::now());
     }

@@ -36,7 +36,7 @@ class DeleteExpiredPastAction
      */
     public function delete(): void
     {
-        $delete = $this->past->expired()->delete();
+        $delete = $this->past->whereExpired()->delete();
 
         if ($delete > 0) {
             $this->logger->info(sprintf('% old pasts have been deleted', $delete));
