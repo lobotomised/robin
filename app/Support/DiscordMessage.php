@@ -42,6 +42,7 @@ final class DiscordMessage
 
     /**
      * Ping a message on discord
+     *
      * @param $message
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
