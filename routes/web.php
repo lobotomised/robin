@@ -1,11 +1,10 @@
 <?php
 
-Route::get('/', [
-    'as'   => 'past.create',
-    'uses' => 'PastController@create',
-]);
+declare(strict_types=1);
 
-Route::get('/past/{past}', [
-    'as'   => 'past.view',
-    'uses' => 'PastController@view',
-]);
+use App\Http\Controllers\PastController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [PastController::class, 'create'])->name('past.create');
+
+Route::get('/past/{past}', [PastController::class, 'view'])->name('past.view');
