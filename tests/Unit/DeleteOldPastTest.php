@@ -13,21 +13,7 @@ use Tests\TestCase;
 
 class DeleteOldPastTest extends TestCase
 {
-    /**
-     * @var \App\Actions\DeleteExpiredPastAction
-     */
-    private $deleteExpiredPastAction;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->deleteExpiredPastAction = $this->app->make(DeleteExpiredPastAction::class);
-    }
-
-    /**
-     * @test
-     */
-    public function expired_past_should_be_deleted(): void
+    public function test_expired_past_should_be_deleted(): void
     {
         Event::fake([
             PastCreated::class,
@@ -37,17 +23,14 @@ class DeleteOldPastTest extends TestCase
             'expire_at' => Carbon::now()->subMonth(),
         ]);
 
-        $this->deleteExpiredPastAction->delete();
+        app(DeleteExpiredPastAction::class)->delete();
 
         $this->assertDatabaseMissing('Pasts', [
             'id' => $past->id,
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function unexpired_past_should_not_be_deleted(): void
+    public function test_unexpired_past_should_not_be_deleted(): void
     {
         Event::fake([
             PastCreated::class,
@@ -57,7 +40,7 @@ class DeleteOldPastTest extends TestCase
             'expire_at' => Carbon::now()->addMonth(),
         ]);
 
-        $this->deleteExpiredPastAction->delete();
+        app(DeleteExpiredPastAction::class)->delete();
 
         $this->assertDatabaseHas('Pasts', [
             'id' => $past->id,

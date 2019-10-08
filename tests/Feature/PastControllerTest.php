@@ -13,20 +13,14 @@ use Tests\TestCase;
 
 class PastControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function can_access_create_past(): void
+    public function test_can_access_create_past(): void
     {
         $response = $this->get(route('past.create'));
 
         $response->assertStatus(200);
     }
 
-    /**
-     * @test
-     */
-    public function can_store_past(): void
+    public function test_can_store_past(): void
     {
         $this->mock(HttpClient::class)
             ->shouldReceive('request')
@@ -41,10 +35,7 @@ class PastControllerTest extends TestCase
         $response->assertStatus(201);
     }
 
-    /**
-     * @test
-     */
-    public function can_show_past(): void
+    public function test_can_show_past(): void
     {
         Event::fake([
             PastCreated::class,
