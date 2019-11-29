@@ -79,4 +79,20 @@ final class Past extends Model
 
         return $this;
     }
+
+    /**
+     * @param string $encrypted
+     * @param string $expire
+     *
+     * @return $this
+     */
+    public function createPast(string $encrypted, string $expire): self
+    {
+        $this->encrypted = $encrypted;
+        $this->setExpireFromPeriode($expire);
+
+        $this->save();
+
+        return $this;
+    }
 }

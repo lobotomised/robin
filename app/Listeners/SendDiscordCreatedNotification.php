@@ -12,7 +12,7 @@ final class SendDiscordCreatedNotification
     /**
      * @var \App\Support\DiscordMessage
      */
-    private $discord;
+    private DiscordMessage $discord;
 
     /**
      * Create the event listener.

@@ -26,7 +26,7 @@ final class PurgePast extends Command
     /**
      * @var \App\Actions\DeleteExpiredPastAction
      */
-    private $deletePast;
+    private DeleteExpiredPastAction $deletePast;
 
     /**
      * Create a new command instance.

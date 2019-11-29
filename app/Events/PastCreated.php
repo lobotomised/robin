@@ -15,7 +15,7 @@ class PastCreated
     /**
      * @var \App\Models\Past
      */
-    public $past;
+    public Past $past;
 
     /**
      * Create a new event instance.

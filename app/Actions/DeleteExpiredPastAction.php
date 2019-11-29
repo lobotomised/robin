@@ -12,12 +12,12 @@ class DeleteExpiredPastAction
     /**
      * @var \App\Models\Past
      */
-    private $past;
+    private Past $past;
 
     /**
      * @var \Psr\Log\LoggerInterface
      */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * DeleteExpiredPastAction constructor.
