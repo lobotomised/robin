@@ -18,12 +18,7 @@ final class PastApiController extends Controller
      */
     public function store(CreatePastRequest $request): Response
     {
-        $past = new Past;
-
-        $past->encrypted = $request->encrypted;
-        $past->setExpireFromPeriode($request->expire);
-
-        $past->save();
+        $past = (new Past)->createPast($request->encrypted, $request->expire);
 
         return response(new PastResource($past), Response::HTTP_CREATED);
     }

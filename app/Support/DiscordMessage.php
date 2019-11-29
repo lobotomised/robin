@@ -13,25 +13,26 @@ final class DiscordMessage
      *
      * @var \GuzzleHttp\Client
      */
-    private $httpClient;
+    private HttpClient $httpClient;
 
     /**
      * Discord API base URL.
      *
      * @var string
      */
-    private $baseUrl;
+    private string $baseUrl;
 
     /**
      * @var string
      */
-    private $webhook_token;
+    private string $webhook_token;
 
     /**
      * @var string
      */
-    private $webhook_id;
+    private string $webhook_id;
 
+    /** @noinspection PhpStrictTypeCheckingInspection */
     public function __construct(HttpClient $httpClient)
     {
         $this->httpClient    = $httpClient;

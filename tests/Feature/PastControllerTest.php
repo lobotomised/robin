@@ -6,8 +6,6 @@ namespace Tests\Feature;
 
 use App\Events\PastCreated;
 use App\Models\Past;
-use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
@@ -22,10 +20,9 @@ class PastControllerTest extends TestCase
 
     public function test_can_store_past(): void
     {
-        $this->mock(HttpClient::class)
-            ->shouldReceive('request')
-            ->once()
-            ->andReturn(new Response(200));
+        Event::fake([
+            PastCreated::class,
+        ]);
 
         $response = $this->json('POST', route('api.past.store'), [
             'expire'    => '1w',
