@@ -16,7 +16,7 @@
     clone_repository
     publish_commit_sha
     run_composer
-    run_yarn
+    run_npm
     cleanup_build_process
     down
     update_symlinks
@@ -45,12 +45,11 @@
     composer install --prefer-dist --no-dev --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
 @endtask
 
-@task('run_yarn')
-    {{ logMessage("📦 Running Yarn...") }}
+@task('run_npm')
+    {{ logMessage("📦 Running npm...") }}
     cd {{ $new_release_dir }}
-    yarn config set ignore-engines true
-    yarn install --frozen-lockfile
-    yarn run production
+    npm ci
+    npm run production
 @endtask
 
 @task('cleanup_build_process')
