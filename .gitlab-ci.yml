@@ -37,11 +37,11 @@ composer:
     paths:
       - vendor/
 
-yarn:
+npm:
   stage: preparation
   script:
-    - yarn --version
-    - yarn install --pure-lockfile
+    - npm --version
+    - npm ci
   artifacts:
     paths:
       - node_modules/
@@ -55,10 +55,10 @@ build-assets:
   stage: building
   dependencies:
     - composer
-    - yarn
+    - npm
   script:
-    - yarn --version
-    - yarn run production --progress false
+    - npm --version
+    - npm run production --progress false
   artifacts:
     paths:
       - public/css/
@@ -74,7 +74,7 @@ db-seeding:
     - mysql:5.7
   dependencies:
     - composer
-    - yarn
+    - npm
   script:
     - php artisan migrate
   artifacts:
