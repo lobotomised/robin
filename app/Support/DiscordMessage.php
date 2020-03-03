@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Support;
 
-use GuzzleHttp\Client as HttpClient;
+use Illuminate\Support\Facades\Http;
 
 final class DiscordMessage
 {
     /**
-     * API HTTP client.
-     *
-     * @var \GuzzleHttp\Client
+     * @var \Illuminate\Support\Facades\Http
      */
-    private HttpClient $httpClient;
+    private Http $httpClient;
 
     /**
      * Discord API base URL.
@@ -33,7 +31,7 @@ final class DiscordMessage
     private string $webhook_id;
 
     /** @noinspection PhpStrictTypeCheckingInspection */
-    public function __construct(HttpClient $httpClient)
+    public function __construct(Http $httpClient)
     {
         $this->httpClient    = $httpClient;
         $this->baseUrl       = config('services.discord.base_url');
@@ -46,7 +44,6 @@ final class DiscordMessage
      *
      * @param $message
      *
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function send($message): void
     {
@@ -63,7 +60,7 @@ final class DiscordMessage
         ];
 
         if (config('services.discord.enabled')) {
-            $this->httpClient->request('POST', $discord_url, $options);
+            $this->httpClient::withHeaders($options)->post($discord_url, $payload);
         }
     }
 }
