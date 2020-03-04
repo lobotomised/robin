@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('db:backup')->daily()->at('05:00');
+        $schedule->command('db:backup --delete --keep=5')->daily()->at('05:00');
 
         $schedule->command('past:purge')->everyMinute();
     }
