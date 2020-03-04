@@ -2,9 +2,9 @@
 
 @setup
     $repository = 'git@gitlab.com:lobotomised/robin.git';
-    $releases_dir = '/var/www/robin/releases';
-    $app_dir = '/var/www/robin/current';
-    $release_name = date('Y-m-d_H-i-s');
+    $releases_dir = '/home/robin/releases';
+    $app_dir = '/home/robin/current';
+    $release_name = date('Ymd-His');
     $new_release_dir = $releases_dir .'/'. $release_name;
 
     function logMessage($message) {
