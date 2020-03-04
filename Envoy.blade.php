@@ -68,6 +68,7 @@
 @task('migrate_db')
     {{ logMessage("🙈 Migrating database") }}
     cd {{ $new_release_dir }}
+    php artisan db:backup
     php artisan migrate --force
 @endtask
 
