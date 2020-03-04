@@ -1,7 +1,7 @@
 @servers(['web' => 'robin@robin.lobotomised.net'])
 
 @setup
-    $repository = 'git@gitlab.com:lobotomised/robin.git';
+    $repository = 'git@github.com:lobotomised/robin.git';
     $releases_dir = '/home/robin/releases';
     $app_dir = '/home/robin/current';
     $release_name = date('Ymd-His');
