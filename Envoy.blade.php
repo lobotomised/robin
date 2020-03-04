@@ -2,8 +2,9 @@
 
 @setup
     $repository = 'git@github.com:lobotomised/robin.git';
-    $releases_dir = '/home/robin/releases';
-    $app_dir = '/home/robin/current';
+    $base_dir = '/home/robin';
+    $app_dir = $base_dir . '/current';
+    $releases_dir = $base_dir . '/releases';
     $release_name = date('Ymd-His');
     $new_release_dir = $releases_dir .'/'. $release_name;
 
@@ -17,12 +18,9 @@
     publish_commit_sha
     run_composer
     run_npm
-    cleanup_build_process
-    down
     update_symlinks
     migrate_db
     laravel_cache
-    up
     remove_old_release
 @endstory
 
@@ -50,20 +48,7 @@
     cd {{ $new_release_dir }}
     npm ci
     npm run production
-@endtask
-
-@task('cleanup_build_process')
-    {{ logMessage("🗳 Cleanup build dependencies") }}
-    cd {{ $new_release_dir }}
     rm -Rf {{ $new_release_dir }}/node_modules
-@endtask
-
-@task('down')
-    {{ logMessage("Laravel go into maintenance mode") }}
-    cd {{ $app_dir }}/current
-    php artisan down --message="Upgrading..." --retry=60
-    cd {{ $new_release_dir }}
-    php artisan down --message="Upgrading..." --retry=60
 @endtask
 
 @task('update_symlinks')
@@ -71,14 +56,13 @@
 
     # Remove the storage directory and replace with de persistent one
     rm -rf {{ $new_release_dir }}/storage
-    ln -nfs {{ $app_dir }}/storage {{ $new_release_dir }}/storage
+    ln -nfs {{ $base_dir }}/persistent/storage {{ $new_release_dir }}/storage
 
     # Link the .env
-    {{ logMessage("Linking .env file") }}
-    ln -nfs {{ $app_dir }}/.env {{ $new_release_dir }}/.env
+    ln -nfs {{ $base_dir }}/.env {{ $new_release_dir }}/.env
 
     {{ logMessage("Linking current release") }}
-    ln -nfs {{ $new_release_dir }} {{ $app_dir }}/current
+    ln -nfs {{ $new_release_dir }} {{ $app_dir }}
 @endtask
 
 @task('migrate_db')
@@ -95,13 +79,7 @@
     php artisan view:cache
 @endtask
 
-@task('up')
-    {{ logMessage("Laravel go out of maintenance mode") }}
-    cd {{ $new_release_dir }}
-    php artisan up
-@endtask
-
 @task('remove_old_release')
     {{ logMessage("⛏ Removing old release") }}
-    ls -dt releases/* | tail -n +6 | xargs -d "\n" rm -rf
+    ls -dt {{ $releases_dir }}/* | tail -n +6 | xargs -d "\n" rm -rf
 @endtask
