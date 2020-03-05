@@ -76,7 +76,7 @@ jobs:
           extensions: curl, mbstring, zip, intl
       - name: Setup Laravel/envoy
         run: composer global require laravel/envoy
-      - name: setup environment
+      - name: Deploy to production
         env:
           GIT_SSH_COMMAND: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
         run: |
@@ -84,4 +84,4 @@ jobs:
           ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}")
           mkdir -p ~/.ssh
           echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null\n\n" > ~/.ssh/config
-          envoy run deploy --commit="$GITHUB_SHA"
+          ~/.composer/vendor/bin/envoy run deploy --commit="$GITHUB_SHA"
