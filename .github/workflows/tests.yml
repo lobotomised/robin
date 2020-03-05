@@ -73,13 +73,9 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.4'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo_mysql, bcmath, soap, intl
-      - name: Install Dependencies
-        run: composer install --prefer-dist --no-ansi --no-interaction --no-suggest --no-scripts
-      - name: Setup Laravel
-        run: |
-          cp .env.example .env
-          php artisan key:generate
+          extensions: curl, mbstring, zip, intl
+      - name: Setup Laravel/envoy
+        run: composer global require laravel/envoy
       - name: setup environment
         env:
           GIT_SSH_COMMAND: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
@@ -88,4 +84,4 @@ jobs:
           ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}")
           mkdir -p ~/.ssh
           echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null\n\n" > ~/.ssh/config
-          ./vendor/bin/envoy run deploy --commit="$GITHUB_SHA"
+          envoy run deploy --commit="$GITHUB_SHA"
