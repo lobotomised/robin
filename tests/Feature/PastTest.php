@@ -25,7 +25,7 @@ final class PastTest extends TestCase
         $this->assertTrue($past->wasRecentlyCreated);
 
         $this->assertDatabaseHas('pasts', [
-            'encrypted' => 'message'
+            'encrypted' => 'message',
         ]);
     }
 }
