@@ -2,14 +2,20 @@
 
 declare(strict_types=1);
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
 use App\Models\Past;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Past::class, static function (Faker $faker) {
-    return [
-        'encrypted' => $faker->sha256,
-        'expire_at' => now(),
-    ];
-});
+class PastFactory extends Factory
+{
+    protected $model = Past::class;
+
+    public function definition()
+    {
+        return [
+            'encrypted' => $this->faker->sha256,
+            'expire_at' => now(),
+        ];
+    }
+}

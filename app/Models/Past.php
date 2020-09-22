@@ -8,6 +8,7 @@ use App\Events\PastCreated;
 use App\Models\Concerns\UsesUuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class Past extends Model
 {
+    use HasFactory;
     use UsesUuid;
 
     protected $fillable = [

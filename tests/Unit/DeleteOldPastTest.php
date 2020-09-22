@@ -19,11 +19,11 @@ class DeleteOldPastTest extends TestCase
             PastCreated::class,
         ]);
 
-        $past = factory(Past::class)->create([
+        $past = Past::factory()->create([
             'expire_at' => Carbon::now()->subMonth(),
         ]);
 
-        app(DeleteExpiredPastAction::class)->delete();
+        (new DeleteExpiredPastAction($past))->delete();
 
         $this->assertDatabaseMissing('Pasts', [
             'id' => $past->id,
@@ -36,11 +36,11 @@ class DeleteOldPastTest extends TestCase
             PastCreated::class,
         ]);
 
-        $past = factory(Past::class)->create([
+        $past = Past::factory()->create([
             'expire_at' => Carbon::now()->addMonth(),
         ]);
 
-        app(DeleteExpiredPastAction::class)->delete();
+        (new DeleteExpiredPastAction($past))->delete();
 
         $this->assertDatabaseHas('Pasts', [
             'id' => $past->id,

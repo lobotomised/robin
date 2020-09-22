@@ -38,7 +38,7 @@ class PastControllerTest extends TestCase
             PastCreated::class,
         ]);
 
-        $past = factory(Past::class)->create();
+        $past = Past::factory()->create();
 
         $response = $this->get(route('past.view', $past));
 
